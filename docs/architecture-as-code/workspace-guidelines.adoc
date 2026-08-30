@@ -21,3 +21,6 @@ serves one audience and is published as its own section of the portal.
   the viewpoint itself in its `adrs/`.
 . New workspaces need Architecture Practice approval and an entry in
   `scripts/build_site.sh` and the portal landing page.
+. Workspace-scoped views (landscapes, dynamic views) are not shown by the site
+  generator on system pages — give each one a documentation page that embeds it
+  with `image::embed:<ViewKey>[]` (see `docs/02-*.adoc` in any workspace).

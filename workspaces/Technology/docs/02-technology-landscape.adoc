@@ -1,0 +1,7 @@
+== Technology Landscape
+
+All enterprise systems and solutions. Combine this view with the generated
+technology inventory to answer estate questions by runtime, database, hosting
+and lifecycle.
+
+image::embed:TechnologyLandscape[Technology Landscape]

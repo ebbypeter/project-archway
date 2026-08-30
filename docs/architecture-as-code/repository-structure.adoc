@@ -9,7 +9,7 @@
 | `models/solutions/<Name>/` | Solution architectures: `architecture/*.dsl`, `docs/`, `adr/`.
 | `models/shared/` | Approved tags and shared styles. Architecture Practice owned.
 | `workspaces/<Audience>/` | Consumer-facing workspaces (Enterprise, Technology, Security, Integration). Views only — never definitions.
-| `docs/` | Practice standards, capabilities, policies.
+| `docs/` | Practice standards, capabilities, policies — the single source of truth; published into the Enterprise workspace section of the portal at build time (`scripts/aggregate_docs.py`). `docs/spec/` (the original specifications) is not published.
 | `templates/` | Copy-paste starting points for new systems, integrations and ADRs.
 | `scripts/` + `Makefile` | Validation, reporting and site build. CI is a thin wrapper over these.
 |===

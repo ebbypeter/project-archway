@@ -1,0 +1,15 @@
+== Integration Views
+
+=== Integration Landscape
+
+Every system-to-system integration in the estate. Each is a first-class asset
+under `models/integrations/` — see the generated interface catalogue for the
+full list with protocols.
+
+image::embed:IntegrationLandscape[Integration Landscape]
+
+=== Telemetry to Insight (dynamic view)
+
+How operational telemetry from GridView becomes business insight, step by step.
+
+image::embed:TelemetryToInsight[Telemetry to Insight]

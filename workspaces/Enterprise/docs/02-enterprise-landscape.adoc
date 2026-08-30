@@ -1,0 +1,8 @@
+== Enterprise Landscape
+
+The complete landscape of Apex Energy Corporation: people, enterprise systems,
+solutions and the integrations connecting them. System-scoped views (context,
+container, component, deployment) are on each system's page under
+_Software Systems_.
+
+image::embed:EnterpriseLandscape[Enterprise Landscape]

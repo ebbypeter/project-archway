@@ -9,6 +9,8 @@ source "$ROOT/scripts/env.sh"
 
 WORKSPACES=(Enterprise Technology Security Integration)
 
+python3 "$ROOT/scripts/aggregate_docs.py"
+
 rm -rf "$ROOT/public"
 mkdir -p "$ROOT/public"
 
