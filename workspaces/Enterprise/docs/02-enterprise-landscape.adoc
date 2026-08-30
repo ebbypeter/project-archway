@@ -4,17 +4,20 @@ The complete landscape of Apex Energy Corporation. System-scoped views
 (context, container, component, deployment) are on each system's page under
 _Software Systems_.
 
+// The tab strip below replicates the markup of the native per-system page
+// tabs (Info / Context views / ...), so both landscape variants present the
+// same way — but toggled in place, since this is a single documentation page.
 ++++
-<div class="tabs is-boxed">
-  <ul id="landscape-tabs">
-    <li class="is-active" data-target="landscape-with-people"><a>With people</a></li>
+<div class="tabs mt-3">
+  <ul id="landscape-tabs" class="is-flex-wrap-wrap is-flex-shrink-1 is-flex-grow-0">
+    <li class="is-active" data-target="landscape-with-people"><a class="is-active">With people</a></li>
     <li data-target="landscape-systems-only"><a>Systems only</a></li>
   </ul>
 </div>
-<div id="landscape-with-people">
+<div class="content p-3" id="landscape-with-people">
   <img src="embed:EnterpriseLandscape" alt="Enterprise Landscape">
 </div>
-<div id="landscape-systems-only" style="display: none;">
+<div class="content p-3" id="landscape-systems-only" style="display: none;">
   <img src="embed:SystemsOnlyLandscape" alt="Systems-Only Landscape">
 </div>
 <script>
@@ -22,9 +25,11 @@ _Software Systems_.
     tab.addEventListener('click', function () {
       document.querySelectorAll('#landscape-tabs li').forEach(function (t) {
         t.classList.remove('is-active');
+        t.querySelector('a').classList.remove('is-active');
         document.getElementById(t.dataset.target).style.display = 'none';
       });
       tab.classList.add('is-active');
+      tab.querySelector('a').classList.add('is-active');
       document.getElementById(tab.dataset.target).style.display = '';
     });
   });
