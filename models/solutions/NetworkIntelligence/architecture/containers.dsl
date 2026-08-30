@@ -18,8 +18,12 @@ networkIntelligence = softwareSystem "Network Intelligence" {
     }
 
     networkPortal = container "Network Portal" "Web UI for exploring network intelligence insights." "React"
-    analyticsApi = container "Analytics API" "Serves curated network analytics to the portal." ".NET 10"
     reportingDb = container "Reporting Database" "Pre-aggregated reporting marts." "PostgreSQL"
+
+    analyticsApi = container "Analytics API" "Serves curated network analytics to the portal." ".NET 10" {
+        # Components are defined in their own file per the solution layout standard.
+        !include components.dsl
+    }
 
     !docs ../docs
 }

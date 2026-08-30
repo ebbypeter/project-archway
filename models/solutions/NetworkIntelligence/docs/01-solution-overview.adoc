@@ -7,7 +7,12 @@ analytics over the energy network, built on curated datasets in InsightLake.
 
 * *Network Portal* — React web UI, entry point for all users.
 * *Analytics API* — .NET 10 service exposing curated analytics; queries
-  InsightLake and its own reporting marts.
+  InsightLake and its own reporting marts. Its components (Insight Controller,
+  Insight Service, Mart Repository, InsightLake Gateway) are modelled in
+  `architecture/components.dsl` and shown in the component view.
 * *Reporting Database* — PostgreSQL marts for pre-aggregated, low-latency queries.
+
+Production runs on the Apex Cloud Kubernetes cluster with a managed PostgreSQL
+service (`architecture/deployment.dsl`, shown in the deployment view).
 
 Authentication is via IdentityCloud (OIDC). See the solution ADRs for key decisions.

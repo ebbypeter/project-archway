@@ -87,10 +87,20 @@ def model_dsl_files() -> list[Path]:
 
 
 def manifest_includes() -> list[Path]:
-    """Paths referenced by the canonical include manifest, resolved."""
-    manifest = MODELS_DIR / "model.dsl"
-    text = _strip_comments(manifest.read_text())
-    return [(MODELS_DIR / inc).resolve() for inc in INCLUDE_RE.findall(text)]
+    """Every file reachable from the canonical manifest, following nested
+    !include directives (e.g. components.dsl included from containers.dsl)."""
+    seen: list[Path] = []
+
+    def walk(file: Path) -> None:
+        text = _strip_comments(file.read_text())
+        for inc in INCLUDE_RE.findall(text):
+            target = (file.parent / inc).resolve()
+            if target.is_file() and target not in seen:
+                seen.append(target)
+                walk(target)
+
+    walk(MODELS_DIR / "model.dsl")
+    return seen
 
 
 def parse_model() -> Model:

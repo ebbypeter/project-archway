@@ -43,6 +43,16 @@ workspace "Apex Energy — Enterprise" "Enterprise landscape and portfolio views
             autoLayout lr
         }
 
+        component analyticsApi "AnalyticsApi-Components" "C4 level 3: components inside the Analytics API container." {
+            include *
+            autoLayout lr
+        }
+
+        deployment networkIntelligence "Production" "NetworkIntelligence-Deployment" "Production deployment of the Network Intelligence solution." {
+            include *
+            autoLayout lr
+        }
+
         !include ../../models/shared/styles/element-styles.dsl
         !include ../../models/shared/styles/relationship-styles.dsl
     }

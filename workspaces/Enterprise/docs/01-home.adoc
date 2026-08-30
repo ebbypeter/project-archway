@@ -8,10 +8,18 @@ connect them.
 
 === Views
 
-* *Enterprise Landscape* — everything on one page.
-* *System Context views* — each key system with its direct dependencies.
+* *Enterprise Landscape* — everything on one page (C4 landscape).
+* *System Context views* — each key system with its direct dependencies (C4 level 1).
 * *Solution container views* — inside the Network Intelligence and Asset
-  Modernization programs.
+  Modernization programs (C4 level 2).
+* *Analytics API components* — inside one container of Network Intelligence
+  (C4 level 3).
+* *Network Intelligence deployment* — container instances mapped onto
+  production infrastructure (C4 deployment diagram).
+
+Together with the dynamic view in the Integration workspace and the tag-scoped
+trust view in the Security workspace, the portal demonstrates every C4 diagram
+type: landscape, context, container, component, dynamic and deployment.
 
 All content is generated from the shared Structurizr model in `models/` — this
 workspace defines no systems of its own.

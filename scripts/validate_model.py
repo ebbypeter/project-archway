@@ -79,7 +79,7 @@ def main() -> int:
     for path in model_dsl_files():
         if path.resolve() not in manifest:
             errors.append(
-                f"{rel(path)} is not listed in models/model.dsl — every model "
+                f"{rel(path)} is not reachable from models/model.dsl — every model "
                 f"fragment must be included via the canonical manifest"
             )
     for path in manifest:

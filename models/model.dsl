@@ -23,8 +23,10 @@
 !include enterprise/systems/ServiceDeskPro/system.dsl
 
 # --- Solutions (containers, solution-level relationships) ---
+# Note: components.dsl files are included from within their containers.dsl.
 !include solutions/AssetModernization/architecture/containers.dsl
 !include solutions/NetworkIntelligence/architecture/containers.dsl
+!include solutions/NetworkIntelligence/architecture/deployment.dsl
 
 # --- Integrations (first-class relationship assets) ---
 !include integrations/AssetHub-IdentityCloud/relationship.dsl

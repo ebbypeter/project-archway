@@ -7,6 +7,8 @@ This workspace focuses on identity and trust:
 * *Authentication Landscape* — which systems authenticate via IdentityCloud,
   and with which protocols (see the relationship technology labels: OIDC, SAML).
 * *Trust Landscape* — where vendor-hosted and SaaS systems sit in the estate.
+* *Vendor Hosted Systems* — a tag-scoped view showing only the
+  `VendorHosted`/`SaaS`-tagged systems: the external trust surface.
 
 Authentication methods and data classifications for each interface are recorded
 in the integration documentation under `models/integrations/`.

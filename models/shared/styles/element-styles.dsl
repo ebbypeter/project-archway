@@ -20,6 +20,11 @@ styles {
         background #438dd5
     }
 
+    element "Component" {
+        background #85bbf0
+        color #000000
+    }
+
     element "Platform" {
         background #6a1b9a
     }
