@@ -23,7 +23,7 @@ workspace "Apex Energy — Architecture" "Enterprise Architecture Knowledge Repo
         systemLandscape "SystemsOnlyLandscape" "Enterprise systems, solutions and integrations — without people." {
             include *
             exclude "element.type==Person"
-            autoLayout tb
+            autoLayout lr
         }
 
         # Tag-scoped view: only the external trust surface. (Structurizr also has

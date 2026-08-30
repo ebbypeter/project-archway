@@ -1,0 +1,28 @@
+== Capabilities
+
+The solution realises five capabilities within the *Asset Management* business
+capability. The table maps each to the containers that provide it.
+
+[cols="2,3,2",options="header"]
+|===
+| Capability | What it provides | Realised by
+| Inspection Planning | Schedule and assign inspections by route, asset class and due date; planners see coverage and overdue work. | Field Inspection App (planning module), AssetHub (work orders)
+| Offline Field Data Capture | Structured inspection forms, photos and defect codes captured with no connectivity; GPS-stamped and queued locally. | Field Inspection App
+| Validation & Data Quality | Payload validation against asset schemas, defect-code catalogues and plausibility rules before anything reaches AssetHub. | Asset Sync Service
+| Asset Condition Management | Validated results update condition scores and trigger follow-up work recommendations. | Asset Sync Service, AssetHub
+| Synchronisation & Conflict Resolution | At-least-once upload with resumable transfer; last-writer-wins per field with audit trail when the same asset is edited twice. | Field Inspection App, Asset Sync Service
+|===
+
+=== How the pieces fit
+
+image::embed:AssetModernization-Containers[Containers of Asset Modernization]
+
+=== Capability boundaries
+
+Deliberately *out of scope* for this solution:
+
+* Asset investment planning and valuation — stays in AssetHub.
+* Analytics and condition trend reporting — InsightLake consumes AssetHub data
+  via the existing `AssetHub-InsightLake` integration; this solution adds no
+  direct analytics feed.
+* Workforce identity — delegated to IdentityCloud (OIDC).

@@ -1,14 +1,27 @@
-== Asset Modernization Program
+== Overview
 
 The Asset Modernization Program replaces paper-based field inspections with an
 offline-capable mobile app whose results are validated and synchronised into
-AssetHub.
+AssetHub, the enterprise asset management platform.
 
-=== Architecture Summary
+*Business driver:* inspection results used to take 2–6 weeks to reach AssetHub
+via paper forms and manual data entry, with a ~8% transcription error rate.
+The program targets same-day availability and validated data at the source.
+
+=== Architecture at a glance
 
 * *Field Inspection App* — Kotlin Multiplatform mobile app, works offline in
   remote locations.
 * *Asset Sync Service* — Java 21 service that validates inspection payloads and
   updates asset condition records in AssetHub.
 
-Authentication is via IdentityCloud (OIDC).
+image::embed:AssetModernization-Context[Asset Modernization in context]
+
+=== In this documentation
+
+* *Capabilities* — what the solution provides and which containers realise it.
+* *User Journeys* — how the Asset Planner and field crews use it end to end.
+* *Security & Integration* — authentication, data protection and the AssetHub
+  interface.
+
+Key decisions are recorded as ADRs in `adr/` (see the offline-first decision).

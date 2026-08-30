@@ -1,0 +1,34 @@
+// Plain "and" in the title: site-generatr derives section URLs from headings,
+// and "&" produces a double-escaped slug.
+== Security and Integration
+
+=== Authentication
+
+Users authenticate via IdentityCloud (OIDC authorization code flow with PKCE).
+Offline sessions use short-lived refresh tokens bound to the device; a revoked
+user's queued uploads are rejected at the Sync Service.
+
+=== Data protection
+
+[cols="1,2"]
+|===
+| At rest (device) | Queued inspections encrypted with a device-bound key.
+| In transit | HTTPS/JSON only; resumable uploads over TLS.
+| Classification | Internal (asset condition data; photos may capture site context).
+|===
+
+=== Interfaces
+
+[cols="1,2",options="header"]
+|===
+| Interface | Notes
+| Field Inspection App -> Asset Sync Service | HTTPS/JSON, at-least-once, resumable. Internal to the solution.
+| Asset Sync Service -> AssetHub | HTTPS/REST, updates asset condition records. Enterprise integration — if this becomes shared, promote it to `models/integrations/`.
+| App / Service -> IdentityCloud | OIDC. Covered by the enterprise `AssetHub-IdentityCloud` pattern.
+|===
+
+=== Operations
+
+* Support team: Asset Systems Support (see system properties).
+* Monitoring: upload failure rate, validation reject rate, sync lag
+  (device-to-AssetHub), reviewed weekly with the reject queue.
