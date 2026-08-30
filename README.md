@@ -7,14 +7,72 @@ pipelines that validate the model and publish a static architecture portal.
 Built to the specs in [docs/spec/](docs/spec/), primarily the
 [Generic Demo Edition](docs/spec/Generic_Architecture_as_Code_Demo_Spec.md).
 
+## Links
+
+| | URL |
+|---|---|
+| Repository | _TODO: set once the GitLab remote exists_ |
+| Architecture portal | _TODO: GitLab Pages URL, e.g. `https://<group>.gitlab.io/<project>/`_ |
+| Local preview | http://localhost:8080 (after `make site && make serve`) |
+
 ## Quick start
 
 ```bash
-make setup      # one-off: downloads JRE (if needed), structurizr-cli, site-generatr into .tools/
-make validate   # convention checks + DSL compile of all four workspaces
-make site       # builds the portal into public/
+make setup      # one-off: downloads pinned tooling into .tools/ (no root needed)
+make validate   # convention checks + authoritative DSL compile of the workspace
+make site       # builds the portal into build/site/
 make serve      # http://localhost:8080
 ```
+
+## Dependencies
+
+Everything except the host prerequisites is downloaded into `.tools/` by
+`make setup` ([scripts/setup-tools.sh](scripts/setup-tools.sh)) — user-space,
+no root, nothing installed system-wide. `.tools/` is gitignored; re-run
+`make setup` on a new machine.
+
+### Host prerequisites
+
+| Tool | Version | Why |
+|---|---|---|
+| [Python](https://www.python.org/) | 3.9+ | Validation, inventory reports, docs aggregation. Standard library only — no `pip install` |
+| [Bash](https://www.gnu.org/software/bash/) | 4+ | `scripts/*.sh` (the Makefile sets `SHELL := /bin/bash`) |
+| GNU Make | 4+ | Task entry points |
+| `curl`, `tar`, `unzip` | any | Used by `make setup` to fetch tooling |
+| [Git](https://git-scm.com/) | 2.x | Source control; `scripts/env.sh` uses it to locate the repo root |
+
+### Managed by `make setup`
+
+| Tool | Version | Purpose | Source |
+|---|---|---|---|
+| Eclipse Temurin JRE | 21 (LTS) | Runs both Structurizr tools. Skipped if the host already has `java` | [adoptium.net](https://adoptium.net/) |
+| Structurizr CLI | `v2025.11.09` (bundles structurizr-java 5.0.2) | Authoritative DSL compile/validate; JSON + PlantUML export | [github.com/structurizr/cli](https://github.com/structurizr/cli) |
+| Structurizr Site Generatr | `1.6.0` | Renders the workspace, its AsciiDoc docs and ADRs into the static portal | [github.com/avisi-cloud/structurizr-site-generatr](https://github.com/avisi-cloud/structurizr-site-generatr) |
+| Graphviz | latest from conda-forge (installed via [micromamba](https://mamba.readthedocs.io/)) | Diagram auto-layout — the site generator shells out to `dot`. Skipped if the host already has it | [graphviz.org](https://graphviz.org/) |
+
+Exact versions are pinned at the top of
+[scripts/setup-tools.sh](scripts/setup-tools.sh); bump them there.
+
+> **Platform note:** `make setup` downloads **Linux x64** builds. On macOS,
+> Windows or ARM, install Java 21 and Graphviz yourself (`make setup` then skips
+> both and fetches only the two Structurizr tools), or run the repo in a
+> container based on the CI image.
+
+### Standards and formats
+
+| | Version | Reference |
+|---|---|---|
+| C4 model | — | [c4model.com](https://c4model.com/) |
+| Structurizr DSL | as supported by the CLI above | [docs.structurizr.com/dsl](https://docs.structurizr.com/dsl) |
+| AsciiDoc | Asciidoctor (bundled in the site generator) | [docs.asciidoctor.org](https://docs.asciidoctor.org/) |
+| ADRs | adr-tools Markdown format | [ADR GitHub org](https://adr.github.io/) |
+
+### CI
+
+[.gitlab-ci.yml](.gitlab-ci.yml) runs the same targets on `eclipse-temurin:21`,
+apt-installing `python3 unzip make curl ca-certificates graphviz`, then calling
+`make validate` / `make reports` / `scripts/build_site.sh`. The tooling cache
+key is `tools` (`.tools/`).
 
 ## What's here
 
@@ -29,6 +87,7 @@ make serve      # http://localhost:8080
 | `docs/` | Practice standards, capabilities, policies (+ original specs) |
 | `docs/templates/` | Starting points for new systems, integrations, ADRs |
 | `scripts/`, `Makefile` | Validation, inventory reports, portal build — CI wraps these |
+| `build/` | Generated output (gitignored); the portal lands in `build/site/` |
 
 ## Governance
 
