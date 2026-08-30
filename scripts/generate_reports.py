@@ -2,8 +2,8 @@
 """Generate inventory reports from model properties.
 
 Outputs (AsciiDoc, rendered into the portal as workspace documentation):
-  workspaces/Technology/docs/90-technology-inventory.gen.adoc
-  workspaces/Integration/docs/90-interface-catalogue.gen.adoc
+  workspaces/Enterprise/docs/90-technology-inventory.gen.adoc
+  workspaces/Enterprise/docs/91-interface-catalogue.gen.adoc
 
 *.gen.adoc files are generated artifacts and are gitignored.
 """
@@ -99,9 +99,9 @@ def interface_catalogue(model) -> str:
 def main() -> None:
     model = parse_model()
     outputs = {
-        ROOT / "workspaces/Technology/docs/90-technology-inventory.gen.adoc":
+        ROOT / "workspaces/Enterprise/docs/90-technology-inventory.gen.adoc":
             technology_inventory(model),
-        ROOT / "workspaces/Integration/docs/90-interface-catalogue.gen.adoc":
+        ROOT / "workspaces/Enterprise/docs/91-interface-catalogue.gen.adoc":
             interface_catalogue(model),
     }
     for path, content in outputs.items():

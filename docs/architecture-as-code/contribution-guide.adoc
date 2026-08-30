@@ -14,8 +14,10 @@
 == Adding an enterprise system
 
 . `models/enterprise/systems/<Name>/system.dsl` from `templates/system.dsl.template`.
+. `views.dsl` alongside it (from `templates/system-views.dsl.template`) and an
+  `!include` for it in the views block of `workspaces/Enterprise/workspace.dsl`.
 . `docs/01-overview.adoc` alongside it.
-. Include it from `models/model.dsl`.
+. Include the system from `models/model.dsl`.
 
 == Adding an integration
 

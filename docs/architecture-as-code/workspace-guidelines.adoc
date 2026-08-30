@@ -1,26 +1,32 @@
 = Workspace Guidelines
 
-Workspaces are consumer-facing viewpoints over the single shared model. Each
-serves one audience and is published as its own section of the portal.
+The repository publishes a *single workspace* — the enterprise picture — as the
+architecture portal. Audience needs (technology inventory, trust views,
+integration catalogue) are served by documentation pages and generated reports
+within it, not by separate workspaces.
 
-[cols="1,2,2",options="header"]
+== Where views live
+
+Views are defined *next to the elements they show* and pulled into the
+workspace's `views` block by `!include`:
+
+[cols="1,2",options="header"]
 |===
-| Workspace | Audience | Views
-| Enterprise | Enterprise Architects, ARB, leadership | Landscape, system contexts, solution containers
-| Technology | Technology leadership, lifecycle managers | Technology landscape + generated inventory
-| Security | Security Architects | Authentication landscape, trust landscape
-| Integration | Integration Architects | Integration landscape, data flows + generated catalogue
+| Views | Location
+| System context views | `models/enterprise/systems/<Name>/views.dsl`
+| Solution container / component / deployment views | `models/solutions/<Name>/views/views.dsl`
+| Enterprise-level views (landscape, tag-scoped, dynamic) | `workspaces/Enterprise/workspace.dsl`
+| Shared styles | `models/shared/styles/`
 |===
 
 == Rules
 
-. A workspace includes the model **only** via `!include ../../models/model.dsl` —
-  never individual fragments, never its own element definitions.
-. Views include the shared styles from `models/shared/styles/`.
-. Workspace-specific narrative lives in the workspace's `docs/`; decisions about
-  the viewpoint itself in its `adrs/`.
-. New workspaces need Architecture Practice approval and an entry in
-  `scripts/build_site.sh` and the portal landing page.
+. The workspace includes the model **only** via `!include ../../models/model.dsl`
+  and never defines elements of its own.
+. A new system or solution ships its views file alongside its definition, and
+  the workspace adds one `!include` for it.
 . Workspace-scoped views (landscapes, dynamic views) are not shown by the site
   generator on system pages — give each one a documentation page that embeds it
-  with `image::embed:<ViewKey>[]` (see `docs/02-*.adoc` in any workspace).
+  with `image::embed:<ViewKey>[]` (see `workspaces/Enterprise/docs/0*.adoc`).
+. Creating an additional workspace (e.g. a restricted-audience one) needs
+  Architecture Practice approval and its own entry in `scripts/build_site.sh`.

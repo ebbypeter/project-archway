@@ -1,0 +1,9 @@
+# Template: models/enterprise/systems/<SystemName>/views.dsl
+# Views live next to the elements they show. After creating this file, add
+#   !include ../../models/enterprise/systems/<SystemName>/views.dsl
+# to the views block of workspaces/Enterprise/workspace.dsl.
+
+systemContext systemName "SystemName-Context" "SystemName and its direct dependencies." {
+    include *
+    autoLayout lr
+}

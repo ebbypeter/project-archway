@@ -1,25 +1,25 @@
-== Enterprise Workspace
+== Apex Energy — Architecture
 
-*Audience:* Enterprise Architects, Architecture Review Board, Leadership.
+The Enterprise Architecture Knowledge Repository of Apex Energy Corporation,
+generated from a single Structurizr model in Git. All content — diagrams,
+documentation, decisions and inventories — is produced from source control;
+nothing here is hand-drawn.
 
-This workspace shows the enterprise landscape of Apex Energy Corporation:
-people, enterprise systems, in-flight solutions, and the integrations that
-connect them.
+=== Finding your way
 
-=== Views
+* *Software Systems* — every enterprise system and solution, each with its
+  context, container, component and deployment views, documentation and
+  dependencies. Views are defined in the model next to the elements they show.
+* *Enterprise Landscape* — the whole estate on one page.
+* *Trust Views* — the external (vendor-hosted / SaaS) trust surface, for
+  security review.
+* *Integration Views* and the generated *Interface Catalogue* — every
+  system-to-system interface as a first-class, documented asset.
+* *Technology Inventory* (generated) — the estate by runtime, database,
+  hosting, lifecycle and criticality, built from model properties.
+* *Architecture Practice Standards*, *Policies* and *Business Capabilities* —
+  published from the repository's `docs/` folder.
+* *Decisions* — architecture decision records.
 
-* *Enterprise Landscape* — everything on one page (C4 landscape).
-* *System Context views* — each key system with its direct dependencies (C4 level 1).
-* *Solution container views* — inside the Network Intelligence and Asset
-  Modernization programs (C4 level 2).
-* *Analytics API components* — inside one container of Network Intelligence
-  (C4 level 3).
-* *Network Intelligence deployment* — container instances mapped onto
-  production infrastructure (C4 deployment diagram).
-
-Together with the dynamic view in the Integration workspace and the tag-scoped
-trust view in the Security workspace, the portal demonstrates every C4 diagram
-type: landscape, context, container, component, dynamic and deployment.
-
-All content is generated from the shared Structurizr model in `models/` — this
-workspace defines no systems of its own.
+All changes are made via merge request; see the Contribution Guide under
+Architecture Practice Standards.

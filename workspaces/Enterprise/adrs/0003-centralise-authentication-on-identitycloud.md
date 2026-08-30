@@ -1,4 +1,4 @@
-# 1. Centralise workforce authentication on IdentityCloud
+# 3. Centralise workforce authentication on IdentityCloud
 
 Date: 2026-08-30
 

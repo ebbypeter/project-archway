@@ -1,4 +1,4 @@
-# 1. Store technology metadata as properties, not tags
+# 2. Store technology metadata as properties, not tags
 
 Date: 2026-08-30
 

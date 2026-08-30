@@ -1,5 +1,5 @@
 SHELL := /bin/bash
-WORKSPACES := Enterprise Technology Security Integration
+WORKSPACES := Enterprise
 
 .PHONY: setup validate compile reports site serve clean
 

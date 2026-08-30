@@ -1,4 +1,4 @@
-workspace "Apex Energy — Enterprise" "Enterprise landscape and portfolio views for Enterprise Architects, ARB and leadership." {
+workspace "Apex Energy — Architecture" "Enterprise Architecture Knowledge Repository for Apex Energy Corporation." {
 
     !docs docs
     !adrs adrs
@@ -13,45 +13,42 @@ workspace "Apex Energy — Enterprise" "Enterprise landscape and portfolio views
             "generatr.site.exporter" "structurizr"
         }
 
+        # --- Enterprise-level views (owned by this workspace) ---
+
         systemLandscape "EnterpriseLandscape" "All people, enterprise systems, solutions and integrations." {
             include *
+            autoLayout tb
+        }
+
+        # Tag-scoped view: only the external trust surface. (Structurizr also has
+        # `filtered` views, but the site generator does not render those, so we
+        # scope a real view with an element expression instead.)
+        systemLandscape "VendorHostedSystems" "Only vendor-hosted and SaaS systems — the external trust surface." {
+            include "element.tag==VendorHosted || element.tag==SaaS"
             autoLayout lr
         }
 
-        systemContext gridView "GridView-Context" "GridView and its direct dependencies." {
-            include *
+        dynamic * "TelemetryToInsight" "How operational telemetry becomes business insight." {
+            gridView -> insightLake "Publishes operational telemetry"
+            businessManager -> insightLake "Consumes dashboards and reports from"
             autoLayout lr
         }
 
-        systemContext assetHub "AssetHub-Context" "AssetHub and its direct dependencies." {
-            include *
-            autoLayout lr
-        }
+        # --- System views, defined next to each system ---
 
-        systemContext insightLake "InsightLake-Context" "InsightLake and the systems feeding it." {
-            include *
-            autoLayout lr
-        }
+        !include ../../models/enterprise/systems/AssetHub/views.dsl
+        !include ../../models/enterprise/systems/GridView/views.dsl
+        !include ../../models/enterprise/systems/IdentityCloud/views.dsl
+        !include ../../models/enterprise/systems/InsightLake/views.dsl
+        !include ../../models/enterprise/systems/NotifyNow/views.dsl
+        !include ../../models/enterprise/systems/ServiceDeskPro/views.dsl
 
-        container networkIntelligence "NetworkIntelligence-Containers" "Containers of the Network Intelligence solution." {
-            include *
-            autoLayout lr
-        }
+        # --- Solution views, defined next to each solution ---
 
-        container assetModernization "AssetModernization-Containers" "Containers of the Asset Modernization solution." {
-            include *
-            autoLayout lr
-        }
+        !include ../../models/solutions/AssetModernization/views/views.dsl
+        !include ../../models/solutions/NetworkIntelligence/views/views.dsl
 
-        component analyticsApi "AnalyticsApi-Components" "C4 level 3: components inside the Analytics API container." {
-            include *
-            autoLayout lr
-        }
-
-        deployment networkIntelligence "Production" "NetworkIntelligence-Deployment" "Production deployment of the Network Intelligence solution." {
-            include *
-            autoLayout lr
-        }
+        # --- Shared styles ---
 
         !include ../../models/shared/styles/element-styles.dsl
         !include ../../models/shared/styles/relationship-styles.dsl

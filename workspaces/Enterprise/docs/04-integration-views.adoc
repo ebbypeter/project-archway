@@ -1,0 +1,13 @@
+== Integration Views
+
+Integrations are first-class assets: each lives in its own folder under
+`models/integrations/<Source-Target>/` with its relationship definition,
+interface documentation (purpose, authentication, protocol, classification,
+ownership, monitoring) and ADRs. The generated Interface Catalogue lists them
+all; the Enterprise Landscape shows them in context.
+
+=== Telemetry to Insight (dynamic view)
+
+How operational telemetry from GridView becomes business insight, step by step.
+
+image::embed:TelemetryToInsight[Telemetry to Insight]

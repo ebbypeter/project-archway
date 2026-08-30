@@ -12,6 +12,9 @@ public/
 .structurizr/
 **/workspace.json
 
+# Python
+__pycache__/
+
 # Editor/OS noise
 .idea/
 .vscode/

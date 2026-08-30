@@ -76,11 +76,18 @@ def _strip_comments(text: str) -> str:
 
 
 def model_dsl_files() -> list[Path]:
-    """All model fragment files (excludes shared styles and the manifest)."""
+    """All model fragment files.
+
+    Excludes the manifest itself, shared styles, and view fragments
+    (views.dsl / views/ directories) — views are defined next to the elements
+    they show but are included by the workspace views block, not the model.
+    """
     files = []
     for path in sorted(MODELS_DIR.rglob("*.dsl")):
         rel = path.relative_to(MODELS_DIR)
         if rel == Path("model.dsl") or rel.parts[0] == "shared":
+            continue
+        if path.name == "views.dsl" or "views" in rel.parts[:-1]:
             continue
         files.append(path)
     return files

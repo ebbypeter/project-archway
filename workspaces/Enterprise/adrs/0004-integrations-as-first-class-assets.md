@@ -1,4 +1,4 @@
-# 1. Model integrations as first-class assets
+# 4. Model integrations as first-class assets
 
 Date: 2026-08-30
 

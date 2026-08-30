@@ -21,11 +21,11 @@ make serve      # http://localhost:8080
 | Path | What it is |
 |---|---|
 | `models/model.dsl` | Canonical include manifest (pipeline-enforced) |
-| `models/enterprise/` | People and systems — defined once, reused everywhere |
+| `models/enterprise/` | People and systems — defined once, reused everywhere; each system's views live beside it (`views.dsl`) |
 | `models/integrations/` | First-class integration assets (DSL + interface doc + ADRs) |
-| `models/solutions/` | Solution architectures (containers, docs, ADRs) |
+| `models/solutions/` | Solution architectures (containers, components, deployment, views, docs, ADRs) |
 | `models/shared/` | Approved tags and shared diagram styles |
-| `workspaces/` | Audience workspaces: Enterprise, Technology, Security, Integration |
+| `workspaces/Enterprise/` | The single published workspace: enterprise views, portal docs, ADRs |
 | `docs/` | Practice standards, capabilities, policies (+ original specs) |
 | `templates/` | Starting points for new systems, integrations, ADRs |
 | `scripts/`, `Makefile` | Validation, inventory reports, portal build — CI wraps these |
