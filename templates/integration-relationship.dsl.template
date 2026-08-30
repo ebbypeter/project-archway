@@ -1,0 +1,7 @@
+# Template: models/integrations/<Source-Target>/relationship.dsl
+# 1. Folder name is <SourceSystem>-<TargetSystem>.
+# 2. Add the include to models/model.dsl (integrations section).
+# 3. Complete docs/interface.adoc (use templates/interface.adoc.template).
+# 4. Use a preferred verb: Uses, Publishes, Consumes, Authenticates Via, Monitors, Administers.
+
+sourceSystem -> targetSystem "Publishes X data" "Protocol / format"

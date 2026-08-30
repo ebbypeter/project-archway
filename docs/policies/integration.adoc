@@ -1,0 +1,9 @@
+= Integration Policies
+
+* Every system-to-system interface is a first-class asset under
+  `models/integrations/`, owned by an Integration Owner.
+* Interface documentation must complete every row of the interface template
+  (purpose, classification, authentication, protocol, ownership, monitoring).
+* Preferred styles: REST/JSON for request-response, event streaming for
+  telemetry and high-volume data movement.
+* Point-to-point database links between systems are not permitted.

@@ -1,0 +1,14 @@
+== Asset Modernization Program
+
+The Asset Modernization Program replaces paper-based field inspections with an
+offline-capable mobile app whose results are validated and synchronised into
+AssetHub.
+
+=== Architecture Summary
+
+* *Field Inspection App* — Kotlin Multiplatform mobile app, works offline in
+  remote locations.
+* *Asset Sync Service* — Java 21 service that validates inspection payloads and
+  updates asset condition records in AssetHub.
+
+Authentication is via IdentityCloud (OIDC).

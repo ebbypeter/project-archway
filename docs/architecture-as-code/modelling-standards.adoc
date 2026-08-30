@@ -1,0 +1,31 @@
+= Modelling Standards
+
+== Properties are facts
+
+Technology metadata is stored in `properties`, never as tags.
+
+Mandatory on every software system (pipeline-enforced): `owner`, `capability`,
+`lifecycle`, `criticality`.
+
+Optional: `runtime`, `database`, `hosting`, `vendor`, `supportTeam`, `repository`,
+`businessOwner`.
+
+Lifecycle values: `Production`, `Under Upgrade`, `Retiring`.
+Criticality values: `High`, `Medium`, `Low`.
+
+== Tags are classifications
+
+Only tags from `models/shared/tags/approved-tags.adoc` may be used
+(pipeline-enforced). Never create technology tags such as `DotNet10`.
+
+== Perspectives
+
+Each system declares `Technology`, `Lifecycle`, `Ownership` and `Criticality`
+perspectives summarising its properties, so viewers can overlay them on diagrams.
+
+== Documentation
+
+* System, solution and workspace documentation is AsciiDoc, wired in with `!docs`.
+* ADRs use the adr-tools Markdown format (`templates/adr.md.template`), wired in
+  with `!adrs` at workspace level; integration and solution ADRs live in their
+  asset's `adr/` folder.

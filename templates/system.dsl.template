@@ -1,0 +1,31 @@
+# Template: models/enterprise/systems/<SystemName>/system.dsl
+# 1. Copy this folder structure; identifier is lowerCamelCase of the system name.
+# 2. Add the include to models/model.dsl (alphabetical within its section).
+# 3. Tags must come from models/shared/tags/approved-tags.adoc.
+# 4. owner, capability, lifecycle, criticality are mandatory (pipeline-enforced).
+
+systemName = softwareSystem "SystemName" {
+    description "One-sentence description of what the system does."
+
+    tags "EnterpriseSystem"
+
+    properties {
+        owner "Owning business unit"
+        capability "Business capability"
+        lifecycle "Production"
+        criticality "Medium"
+        runtime ""
+        database ""
+        hosting ""
+        supportTeam ""
+    }
+
+    perspectives {
+        "Technology" "runtime / database / hosting summary"
+        "Lifecycle" "Production"
+        "Ownership" "Owning business unit"
+        "Criticality" "Medium"
+    }
+
+    !docs docs
+}

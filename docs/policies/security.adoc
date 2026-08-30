@@ -1,0 +1,9 @@
+= Security Policies
+
+* Workforce authentication is centralised on IdentityCloud — OIDC preferred,
+  SAML 2.0 where the product requires it (see Security workspace ADR-0001).
+* Every interface document states its data classification and authentication
+  method.
+* Secrets (API keys, client credentials) are never stored in this repository.
+* Vendor-hosted and SaaS systems are tagged so trust boundaries are visible in
+  the Security workspace.

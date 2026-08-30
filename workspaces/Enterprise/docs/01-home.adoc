@@ -1,0 +1,17 @@
+== Enterprise Workspace
+
+*Audience:* Enterprise Architects, Architecture Review Board, Leadership.
+
+This workspace shows the enterprise landscape of Apex Energy Corporation:
+people, enterprise systems, in-flight solutions, and the integrations that
+connect them.
+
+=== Views
+
+* *Enterprise Landscape* — everything on one page.
+* *System Context views* — each key system with its direct dependencies.
+* *Solution container views* — inside the Network Intelligence and Asset
+  Modernization programs.
+
+All content is generated from the shared Structurizr model in `models/` — this
+workspace defines no systems of its own.

@@ -1,0 +1,15 @@
+== Interface: AssetHub -> IdentityCloud
+
+[cols="1,3"]
+|===
+| Purpose | User authentication and single sign-on for AssetHub.
+| Source System | AssetHub
+| Target System | IdentityCloud
+| Data Classification | Confidential (identity data)
+| Authentication Method | SAML 2.0 (vendor product constraint; OIDC migration planned)
+| Transport Protocol | HTTPS
+| Frequency | Per user session
+| Support Team | Identity & Access Team
+| Operational Ownership | Corporate Services
+| Monitoring Approach | Sign-in failure rate and IdP availability alerts
+|===

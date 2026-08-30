@@ -1,0 +1,16 @@
+== Integration Workspace
+
+*Audience:* Integration Architects.
+
+Integrations are first-class assets: each lives in its own folder under
+`models/integrations/<Source-Target>/` with its relationship definition,
+interface documentation (purpose, authentication, protocol, classification,
+ownership, monitoring) and ADRs.
+
+=== Views
+
+* *Integration Landscape* — every system-to-system integration.
+* *Telemetry to Insight* — dynamic view of the operational telemetry flow.
+
+The interface catalogue in this documentation is generated from the model by
+the pipeline.

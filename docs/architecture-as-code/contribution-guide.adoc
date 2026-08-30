@@ -1,0 +1,34 @@
+= Contribution Guide
+
+== Workflow
+
+. Branch from `main`.
+. Make your model/documentation change (start from `templates/`).
+. Register any new `.dsl` file in `models/model.dsl`.
+. Run `make validate` locally (first time: `make setup`).
+. Open a merge request. CODEOWNERS routes it to the right reviewers:
+  enterprise/shared assets to Architecture Practice, integrations to the
+  Integration Owner, solutions to the Solution Architect.
+. On merge to `main`, the pipeline republishes the portal.
+
+== Adding an enterprise system
+
+. `models/enterprise/systems/<Name>/system.dsl` from `templates/system.dsl.template`.
+. `docs/01-overview.adoc` alongside it.
+. Include it from `models/model.dsl`.
+
+== Adding an integration
+
+. Folder `models/integrations/<Source>-<Target>/`.
+. `relationship.dsl`, `docs/interface.adoc` (all rows completed), `adr/` as needed.
+. Include it from `models/model.dsl`.
+
+== Local commands
+
+[cols="1,2"]
+|===
+| `make setup` | Download tooling into `.tools/` (one-off)
+| `make validate` | Convention checks + DSL compile of all workspaces
+| `make site` | Full portal build into `public/`
+| `make serve` | Serve the portal at http://localhost:8080
+|===

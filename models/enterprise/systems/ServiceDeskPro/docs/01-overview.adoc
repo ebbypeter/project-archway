@@ -1,0 +1,16 @@
+== ServiceDeskPro
+
+ServiceDeskPro is the IT service management platform used for incidents, service
+requests, and change management. It notifies stakeholders via NotifyNow.
+
+=== Key Facts
+
+[cols="1,2"]
+|===
+| Owner | Corporate Services
+| Capability | Corporate Services
+| Lifecycle | Production
+| Criticality | Medium
+| Hosting | SaaS
+| Vendor | ServiceDeskPro Ltd.
+|===

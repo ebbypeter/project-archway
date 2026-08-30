@@ -1,0 +1,19 @@
+# N. Title stating the decision
+
+Date: YYYY-MM-DD
+
+## Status
+
+Proposed | Accepted | Superseded by [ADR-XXXX] | Retired
+
+## Context
+
+What forces are at play; why a decision is needed.
+
+## Decision
+
+The decision, stated in active voice ("We will ...").
+
+## Consequences
+
+What becomes easier, what becomes harder, what must now be managed.

@@ -1,0 +1,9 @@
+= Technology Policies
+
+* Technology facts (`runtime`, `database`, `hosting`) are recorded as
+  properties on each system and kept current by the owning team.
+* Lifecycle status (`Production`, `Under Upgrade`, `Retiring`) drives the
+  technology lifecycle review; the generated inventory in the Technology
+  workspace is the reporting source.
+* New runtimes/databases enter the estate via an ADR reviewed by Architecture
+  Practice.

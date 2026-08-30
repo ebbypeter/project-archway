@@ -1,0 +1,17 @@
+= Architecture Policies
+
+== ADR standard
+
+Every significant decision is recorded as an ADR in the owning asset's `adr/`
+folder using `templates/adr.md.template`. Statuses: Proposed, Accepted,
+Superseded, Retired. ADRs are never deleted, only superseded.
+
+== Diagram standard
+
+Diagrams are generated from the Structurizr model. Hand-drawn diagrams are not
+accepted into this repository.
+
+== Documentation standard
+
+Documentation is AsciiDoc, lives beside the asset it describes, and is published
+via the portal pipeline.

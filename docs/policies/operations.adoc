@@ -1,0 +1,7 @@
+= Operations Policies
+
+* Every system records a `supportTeam` property; every integration document
+  names its support team and monitoring approach.
+* Criticality (`High`, `Medium`, `Low`) determines DR and backup expectations,
+  agreed with the owning business unit.
+* Monitoring must detect interface failure independently of the source system.

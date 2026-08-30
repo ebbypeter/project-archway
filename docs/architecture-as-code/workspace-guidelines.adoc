@@ -1,0 +1,23 @@
+= Workspace Guidelines
+
+Workspaces are consumer-facing viewpoints over the single shared model. Each
+serves one audience and is published as its own section of the portal.
+
+[cols="1,2,2",options="header"]
+|===
+| Workspace | Audience | Views
+| Enterprise | Enterprise Architects, ARB, leadership | Landscape, system contexts, solution containers
+| Technology | Technology leadership, lifecycle managers | Technology landscape + generated inventory
+| Security | Security Architects | Authentication landscape, trust landscape
+| Integration | Integration Architects | Integration landscape, data flows + generated catalogue
+|===
+
+== Rules
+
+. A workspace includes the model **only** via `!include ../../models/model.dsl` —
+  never individual fragments, never its own element definitions.
+. Views include the shared styles from `models/shared/styles/`.
+. Workspace-specific narrative lives in the workspace's `docs/`; decisions about
+  the viewpoint itself in its `adrs/`.
+. New workspaces need Architecture Practice approval and an entry in
+  `scripts/build_site.sh` and the portal landing page.

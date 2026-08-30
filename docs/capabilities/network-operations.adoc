@@ -1,0 +1,6 @@
+= Capability: Network Operations
+
+Operating and monitoring the energy network in real time.
+
+*Primary systems:* GridView. *Solutions:* Network Intelligence Program.
+*Key roles:* Operations Engineer.

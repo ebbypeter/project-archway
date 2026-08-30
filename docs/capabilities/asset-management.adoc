@@ -1,0 +1,7 @@
+= Capability: Asset Management
+
+Managing the enterprise asset base: register, condition, maintenance and
+investment planning.
+
+*Primary systems:* AssetHub. *Solutions:* Asset Modernization Program.
+*Key roles:* Asset Planner.

@@ -1,0 +1,22 @@
+== InsightLake
+
+InsightLake is the enterprise analytics platform. It receives data from operational
+and asset systems, curates it, and serves reports and dashboards to the business.
+
+=== Responsibilities
+
+* Ingesting operational telemetry and asset data
+* Curated data products and semantic models
+* Reports and dashboards for analysts and business managers
+
+=== Key Facts
+
+[cols="1,2"]
+|===
+| Owner | Data & Analytics
+| Capability | Data & Analytics
+| Lifecycle | Production
+| Criticality | Medium
+| Hosting | Cloud (vendor platform)
+| Vendor | InsightLake Inc.
+|===

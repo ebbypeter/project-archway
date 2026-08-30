@@ -1,0 +1,24 @@
+# Federated ownership (see docs/architecture-as-code/contribution-guide.adoc).
+# Group handles are placeholders — replace with real GitLab groups on rollout.
+
+# Default: Architecture Practice reviews everything not claimed below.
+* @apex/architecture-practice
+
+# Canonical enterprise assets — Architecture Practice only.
+/models/shared/            @apex/architecture-practice
+/models/enterprise/people/ @apex/architecture-practice
+/models/model.dsl          @apex/architecture-practice
+
+# Enterprise systems — Architecture Practice plus the owning system teams.
+/models/enterprise/systems/ @apex/architecture-practice @apex/system-owners
+
+# Integrations — owned by Integration Owners, not source/target systems.
+/models/integrations/ @apex/integration-owners
+
+# Solutions — owned by Solution Architects.
+/models/solutions/ @apex/solution-architects
+
+# Consumer-facing workspaces and pipeline.
+/workspaces/     @apex/architecture-practice
+/scripts/        @apex/architecture-practice
+/.gitlab-ci.yml  @apex/architecture-practice

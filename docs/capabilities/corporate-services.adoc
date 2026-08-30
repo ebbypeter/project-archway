@@ -1,0 +1,6 @@
+= Capability: Corporate Services
+
+Shared enterprise services: identity, IT service management, notifications.
+
+*Primary systems:* IdentityCloud, ServiceDeskPro, NotifyNow.
+*Key roles:* System Administrator.

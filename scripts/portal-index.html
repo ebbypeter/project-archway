@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apex Energy — Architecture Portal</title>
+<style>
+  :root {
+    --bg: #f6f8fa; --fg: #1f2328; --card: #ffffff; --border: #d0d7de;
+    --accent: #1168bd; --muted: #57606a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #0d1117; --fg: #e6edf3; --card: #161b22; --border: #30363d;
+            --accent: #58a6ff; --muted: #8b949e; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 3rem 1.5rem; background: var(--bg); color: var(--fg);
+         font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 960px; margin: 0 auto; }
+  h1 { font-size: 1.9rem; margin: 0 0 .3rem; }
+  p.lead { color: var(--muted); margin: 0 0 2.5rem; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+  a.card { display: block; background: var(--card); border: 1px solid var(--border);
+           border-radius: 10px; padding: 1.4rem; text-decoration: none; color: inherit;
+           transition: border-color .15s, transform .15s; }
+  a.card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .card h2 { margin: 0 0 .4rem; font-size: 1.15rem; color: var(--accent); }
+  .card p { margin: 0; font-size: .9rem; color: var(--muted); line-height: 1.5; }
+  footer { margin-top: 3rem; font-size: .8rem; color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Apex Energy Corporation — Architecture Portal</h1>
+  <p class="lead">Enterprise Architecture Knowledge Repository, generated from the
+  Structurizr model. Pick the workspace for your audience.</p>
+  <div class="grid">
+    <a class="card" href="enterprise/">
+      <h2>Enterprise</h2>
+      <p>Enterprise landscape, system contexts and solution architectures.
+      For Enterprise Architects, ARB and leadership.</p>
+    </a>
+    <a class="card" href="technology/">
+      <h2>Technology</h2>
+      <p>Technology inventory by runtime, database and hosting; lifecycle views.
+      For technology leadership and lifecycle managers.</p>
+    </a>
+    <a class="card" href="security/">
+      <h2>Security</h2>
+      <p>Authentication landscape, identity dependencies and trust boundaries.
+      For Security Architects.</p>
+    </a>
+    <a class="card" href="integration/">
+      <h2>Integration</h2>
+      <p>Integration landscape, data flows and the interface catalogue.
+      For Integration Architects.</p>
+    </a>
+  </div>
+  <footer>Generated from <code>models/</code> — the single source of truth.
+  All changes via merge request.</footer>
+</main>
+</body>
+</html>

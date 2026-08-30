@@ -1,0 +1,15 @@
+== Interface: <Source> -> <Target>
+
+[cols="1,3"]
+|===
+| Purpose | Why this interface exists.
+| Source System | <Source>
+| Target System | <Target>
+| Data Classification | Public / Internal / Confidential
+| Authentication Method | e.g. OAuth 2.0 client credentials via IdentityCloud
+| Transport Protocol | e.g. HTTPS/REST, event stream
+| Frequency | e.g. real-time / daily batch
+| Support Team | Team that gets paged
+| Operational Ownership | Accountable business unit
+| Monitoring Approach | How failures are detected
+|===

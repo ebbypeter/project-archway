@@ -1,0 +1,30 @@
+= Naming Standards
+
+== Systems
+
+The system name is the product's canonical name — no environment or type suffixes.
+
+* Valid: `GridView`, `AssetHub`, `InsightLake`
+* Invalid: `GridView PROD`, `GridView SYSTEM`, `GRIDVIEW TEST`
+
+The pipeline rejects names containing `PROD`, `SYSTEM`, `TEST`, `UAT`, `DEV`.
+
+== Identifiers
+
+lowerCamelCase of the element name: `gridView`, `operationsEngineer`.
+
+== Relationships
+
+Use a preferred verb phrase, always with a description:
+
+* Uses
+* Publishes … / Consumes …
+* Authenticates Via
+* Monitors
+* Administers
+
+== Files and folders
+
+* System folders: PascalCase product name (`GridView/`).
+* Integration folders: `<Source>-<Target>` (`GridView-InsightLake/`).
+* ADR files: `NNNN-short-slug.md` (`0001-use-event-streaming.md`).

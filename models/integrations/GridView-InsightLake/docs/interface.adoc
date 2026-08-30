@@ -1,0 +1,20 @@
+== Interface: GridView -> InsightLake
+
+[cols="1,3"]
+|===
+| Purpose | Publishes operational telemetry from the energy network into the analytics platform.
+| Source System | GridView
+| Target System | InsightLake
+| Data Classification | Internal
+| Authentication Method | OAuth 2.0 client credentials via IdentityCloud
+| Transport Protocol | Event stream (TLS), AVRO payloads
+| Frequency | Near real-time (continuous)
+| Support Team | Analytics Platform Team
+| Operational Ownership | Data & Analytics
+| Monitoring Approach | Stream lag and dead-letter alerts in GridView ops dashboard
+|===
+
+=== Notes
+
+Telemetry is published to a per-domain topic. Schema changes follow the
+integration change process and require an ADR in this folder.

@@ -1,0 +1,13 @@
+== Network Intelligence Program
+
+The Network Intelligence Program gives Operations and leadership self-service
+analytics over the energy network, built on curated datasets in InsightLake.
+
+=== Architecture Summary
+
+* *Network Portal* — React web UI, entry point for all users.
+* *Analytics API* — .NET 10 service exposing curated analytics; queries
+  InsightLake and its own reporting marts.
+* *Reporting Database* — PostgreSQL marts for pre-aggregated, low-latency queries.
+
+Authentication is via IdentityCloud (OIDC). See the solution ADRs for key decisions.

@@ -1,0 +1,44 @@
+# Thin CI wrapper — all logic lives in scripts/ and the Makefile and runs
+# identically on a developer machine (`make validate`, `make site`).
+
+image: eclipse-temurin:21
+
+stages:
+  - validate
+  - render
+  - publish
+
+default:
+  before_script:
+    - apt-get update -qq && apt-get install -y -qq --no-install-recommends python3 unzip make curl ca-certificates graphviz > /dev/null
+    - scripts/setup-tools.sh
+  cache:
+    key: tools
+    paths:
+      - .tools/
+
+validate:
+  stage: validate
+  script:
+    - make validate
+
+render:
+  stage: render
+  script:
+    - make reports
+    - scripts/build_site.sh
+  artifacts:
+    paths:
+      - public
+    expire_in: 1 week
+
+pages:
+  stage: publish
+  needs: [render]
+  script:
+    - echo "Publishing architecture portal to GitLab Pages"
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'

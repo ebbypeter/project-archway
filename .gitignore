@@ -1,0 +1,19 @@
+# Downloaded tooling (recreate with `make setup`)
+.tools/
+
+# Build outputs
+build/
+public/
+
+# Generated documentation (recreate with `make reports`)
+*.gen.adoc
+
+# structurizr-cli working files
+.structurizr/
+**/workspace.json
+
+# Editor/OS noise
+.idea/
+.vscode/
+*.swp
+.DS_Store

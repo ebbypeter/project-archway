@@ -1,0 +1,145 @@
+"""Minimal parser for this repository's Structurizr DSL conventions.
+
+This is NOT a general Structurizr DSL parser. It relies on the conventions
+enforced in this repository (one element definition per line, properties one
+per line, relationship on one line). structurizr-cli remains the authoritative
+compiler; this parser only powers the convention checks and inventory reports.
+"""
+
+from __future__ import annotations
+
+import re
+from dataclasses import dataclass, field
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+MODELS_DIR = ROOT / "models"
+
+SYSTEM_RE = re.compile(r'^\s*(\w+)\s*=\s*softwareSystem\s+"([^"]+)"', re.M)
+PERSON_RE = re.compile(r'^\s*(\w+)\s*=\s*person\s+"([^"]+)"(?:\s+"([^"]*)")?', re.M)
+CONTAINER_RE = re.compile(r'^\s*(\w+)\s*=\s*container\s+"([^"]+)"(?:\s+"([^"]*)")?(?:\s+"([^"]*)")?', re.M)
+REL_RE = re.compile(r'^\s*(\w+)\s*->\s*(\w+)(?:\s+"([^"]*)")?(?:\s+"([^"]*)")?', re.M)
+TAGS_RE = re.compile(r'^\s*tags\s+(.+)$', re.M)
+PROP_RE = re.compile(r'^\s*(\w+)\s+"([^"]*)"\s*$', re.M)
+INCLUDE_RE = re.compile(r'^\s*!include\s+(\S+)', re.M)
+
+
+@dataclass
+class SoftwareSystem:
+    identifier: str
+    name: str
+    file: Path
+    tags: list[str] = field(default_factory=list)
+    properties: dict[str, str] = field(default_factory=dict)
+
+
+@dataclass
+class Relationship:
+    source: str
+    destination: str
+    description: str
+    technology: str
+    file: Path
+
+
+@dataclass
+class Model:
+    systems: list[SoftwareSystem] = field(default_factory=list)
+    people: dict[str, str] = field(default_factory=dict)      # identifier -> name
+    containers: dict[str, str] = field(default_factory=dict)  # identifier -> name
+    relationships: list[Relationship] = field(default_factory=list)
+    person_files: dict[str, Path] = field(default_factory=dict)
+    container_files: dict[str, Path] = field(default_factory=dict)
+
+
+def _block_body(text: str, open_brace_index: int) -> str:
+    """Return the text between a '{' and its matching '}'."""
+    depth = 0
+    for i in range(open_brace_index, len(text)):
+        if text[i] == "{":
+            depth += 1
+        elif text[i] == "}":
+            depth -= 1
+            if depth == 0:
+                return text[open_brace_index + 1:i]
+    return text[open_brace_index + 1:]
+
+
+def _strip_comments(text: str) -> str:
+    lines = []
+    for line in text.splitlines():
+        stripped = line.lstrip()
+        if stripped.startswith("#") or stripped.startswith("//"):
+            continue
+        lines.append(line)
+    return "\n".join(lines)
+
+
+def model_dsl_files() -> list[Path]:
+    """All model fragment files (excludes shared styles and the manifest)."""
+    files = []
+    for path in sorted(MODELS_DIR.rglob("*.dsl")):
+        rel = path.relative_to(MODELS_DIR)
+        if rel == Path("model.dsl") or rel.parts[0] == "shared":
+            continue
+        files.append(path)
+    return files
+
+
+def manifest_includes() -> list[Path]:
+    """Paths referenced by the canonical include manifest, resolved."""
+    manifest = MODELS_DIR / "model.dsl"
+    text = _strip_comments(manifest.read_text())
+    return [(MODELS_DIR / inc).resolve() for inc in INCLUDE_RE.findall(text)]
+
+
+def parse_model() -> Model:
+    model = Model()
+    for path in model_dsl_files():
+        text = _strip_comments(path.read_text())
+
+        for match in SYSTEM_RE.finditer(text):
+            identifier, name = match.group(1), match.group(2)
+            brace = text.find("{", match.end())
+            body = _block_body(text, brace) if brace != -1 else ""
+
+            tags: list[str] = []
+            for tag_line in TAGS_RE.findall(body):
+                tags.extend(re.findall(r'"([^"]+)"', tag_line))
+
+            properties: dict[str, str] = {}
+            prop_match = re.search(r'properties\s*\{([^}]*)\}', body)
+            if prop_match:
+                properties = dict(PROP_RE.findall(prop_match.group(1)))
+
+            model.systems.append(SoftwareSystem(identifier, name, path, tags, properties))
+
+            for cmatch in CONTAINER_RE.finditer(body):
+                model.containers[cmatch.group(1)] = cmatch.group(2)
+                model.container_files[cmatch.group(1)] = path
+
+        for pmatch in PERSON_RE.finditer(text):
+            model.people[pmatch.group(1)] = pmatch.group(2)
+            model.person_files[pmatch.group(1)] = path
+
+        for rmatch in REL_RE.finditer(text):
+            model.relationships.append(Relationship(
+                source=rmatch.group(1),
+                destination=rmatch.group(2),
+                description=rmatch.group(3) or "",
+                technology=rmatch.group(4) or "",
+                file=path,
+            ))
+
+    return model
+
+
+def approved_tags() -> set[str]:
+    """Approved tags parsed from the bullet list in the governance doc."""
+    doc = MODELS_DIR / "shared" / "tags" / "approved-tags.adoc"
+    tags = set()
+    for line in doc.read_text().splitlines():
+        match = re.match(r'^\*\s+(\w+)\s*$', line)
+        if match:
+            tags.add(match.group(1))
+    return tags
