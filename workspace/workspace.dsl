@@ -4,7 +4,7 @@ workspace "Apex Energy — Architecture" "Enterprise Architecture Knowledge Repo
     !adrs adrs
 
     model {
-        !include ../../models/model.dsl
+        !include ../models/model.dsl
     }
 
     views {
@@ -42,21 +42,21 @@ workspace "Apex Energy — Architecture" "Enterprise Architecture Knowledge Repo
 
         # --- System views, defined next to each system ---
 
-        !include ../../models/enterprise/systems/AssetHub/views.dsl
-        !include ../../models/enterprise/systems/GridView/views.dsl
-        !include ../../models/enterprise/systems/IdentityCloud/views.dsl
-        !include ../../models/enterprise/systems/InsightLake/views.dsl
-        !include ../../models/enterprise/systems/NotifyNow/views.dsl
-        !include ../../models/enterprise/systems/ServiceDeskPro/views.dsl
+        !include ../models/enterprise/systems/AssetHub/views.dsl
+        !include ../models/enterprise/systems/GridView/views.dsl
+        !include ../models/enterprise/systems/IdentityCloud/views.dsl
+        !include ../models/enterprise/systems/InsightLake/views.dsl
+        !include ../models/enterprise/systems/NotifyNow/views.dsl
+        !include ../models/enterprise/systems/ServiceDeskPro/views.dsl
 
         # --- Solution views, defined next to each solution ---
 
-        !include ../../models/solutions/AssetModernization/views/views.dsl
-        !include ../../models/solutions/NetworkIntelligence/views/views.dsl
+        !include ../models/solutions/AssetModernization/views/views.dsl
+        !include ../models/solutions/NetworkIntelligence/views/views.dsl
 
         # --- Shared styles ---
 
-        !include ../../models/shared/styles/element-styles.dsl
-        !include ../../models/shared/styles/relationship-styles.dsl
+        !include ../models/shared/styles/element-styles.dsl
+        !include ../models/shared/styles/relationship-styles.dsl
     }
 }

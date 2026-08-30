@@ -26,6 +26,6 @@ perspectives summarising its properties, so viewers can overlay them on diagrams
 == Documentation
 
 * System, solution and workspace documentation is AsciiDoc, wired in with `!docs`.
-* ADRs use the adr-tools Markdown format (`templates/adr.md.template`), wired in
+* ADRs use the adr-tools Markdown format (`docs/templates/adr.md.template`), wired in
   with `!adrs` at workspace level; integration and solution ADRs live in their
   asset's `adr/` folder.

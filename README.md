@@ -25,9 +25,9 @@ make serve      # http://localhost:8080
 | `models/integrations/` | First-class integration assets (DSL + interface doc + ADRs) |
 | `models/solutions/` | Solution architectures (containers, components, deployment, views, docs, ADRs) |
 | `models/shared/` | Approved tags and shared diagram styles |
-| `workspaces/Enterprise/` | The single published workspace: enterprise views, portal docs, ADRs |
+| `workspace/` | The single published workspace: enterprise views, portal docs, ADRs |
 | `docs/` | Practice standards, capabilities, policies (+ original specs) |
-| `templates/` | Starting points for new systems, integrations, ADRs |
+| `docs/templates/` | Starting points for new systems, integrations, ADRs |
 | `scripts/`, `Makefile` | Validation, inventory reports, portal build — CI wraps these |
 
 ## Governance

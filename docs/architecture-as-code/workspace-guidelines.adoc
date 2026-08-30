@@ -15,18 +15,18 @@ workspace's `views` block by `!include`:
 | Views | Location
 | System context views | `models/enterprise/systems/<Name>/views.dsl`
 | Solution container / component / deployment views | `models/solutions/<Name>/views/views.dsl`
-| Enterprise-level views (landscape, tag-scoped, dynamic) | `workspaces/Enterprise/workspace.dsl`
+| Enterprise-level views (landscape, tag-scoped, dynamic) | `workspace/workspace.dsl`
 | Shared styles | `models/shared/styles/`
 |===
 
 == Rules
 
-. The workspace includes the model **only** via `!include ../../models/model.dsl`
+. The workspace includes the model **only** via `!include ../models/model.dsl`
   and never defines elements of its own.
 . A new system or solution ships its views file alongside its definition, and
   the workspace adds one `!include` for it.
 . Workspace-scoped views (landscapes, dynamic views) are not shown by the site
   generator on system pages — give each one a documentation page that embeds it
-  with `image::embed:<ViewKey>[]` (see `workspaces/Enterprise/docs/0*.adoc`).
+  with `image::embed:<ViewKey>[]` (see `workspace/docs/0*.adoc`).
 . Creating an additional workspace (e.g. a restricted-audience one) needs
   Architecture Practice approval and its own entry in `scripts/build_site.sh`.

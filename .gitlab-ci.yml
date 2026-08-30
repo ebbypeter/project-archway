@@ -27,6 +27,8 @@ render:
   script:
     - make reports
     - scripts/build_site.sh
+    # GitLab Pages requires the artifact directory to be named `public`.
+    - cp -r build/site public
   artifacts:
     paths:
       - public

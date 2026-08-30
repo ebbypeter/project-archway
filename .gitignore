@@ -1,7 +1,7 @@
 # Downloaded tooling (recreate with `make setup`)
 .tools/
 
-# Build outputs
+# Build outputs (portal is built into build/site/)
 build/
 public/
 

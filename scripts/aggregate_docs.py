@@ -19,7 +19,7 @@ from __future__ import annotations
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-TARGET_DIR = ROOT / "workspaces/Enterprise/docs"
+TARGET_DIR = ROOT / "workspace/docs"
 
 SECTIONS = [
     ("20-practice-standards.gen.adoc", "Architecture Practice Standards",

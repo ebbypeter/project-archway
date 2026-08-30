@@ -18,7 +18,7 @@
 # Solutions — owned by Solution Architects.
 /models/solutions/ @apex/solution-architects
 
-# Consumer-facing workspaces and pipeline.
-/workspaces/     @apex/architecture-practice
+# The published workspace and pipeline.
+/workspace/      @apex/architecture-practice
 /scripts/        @apex/architecture-practice
 /.gitlab-ci.yml  @apex/architecture-practice
