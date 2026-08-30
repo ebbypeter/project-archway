@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: setup validate reports site serve clean
+.PHONY: setup validate reports site verify serve clean
 
 ## setup: download pinned tooling into .tools/ (JRE if needed, structurizr-cli, site-generatr)
 setup:
@@ -19,6 +19,10 @@ reports:
 ## site: full build — validate, reports, then static portal into build/site/
 site: validate reports
 	scripts/build_site.sh
+
+## verify: confirm every authored document reached the built site
+verify:
+	python3 scripts/verify_published.py
 
 ## serve: serve the built portal on http://localhost:8080
 serve:

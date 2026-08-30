@@ -10,6 +10,7 @@ Outputs (AsciiDoc, rendered into the portal as workspace documentation):
 
 from __future__ import annotations
 
+import re
 from collections import defaultdict
 from datetime import date
 from pathlib import Path
@@ -91,19 +92,35 @@ def interface_catalogue(model) -> str:
     return "\n".join(lines)
 
 
-def md_to_adoc(text: str) -> str:
-    """Convert the small subset of Markdown used in ADRs to AsciiDoc."""
+def adr_to_adoc(text: str) -> tuple[str, str]:
+    """Render an adr-tools Markdown ADR as (title, AsciiDoc body).
+
+    Section headings become bold labels rather than nested headings: these are
+    already deep inside the catalogue, and AsciiDoc has no level beyond
+    '======'.
+    """
+    title = ""
     out = []
     for line in text.splitlines():
-        if line.startswith("## "):
-            out.append("==== " + line[3:])
-        elif line.startswith("# "):
-            out.append("=== " + line[2:])
-        elif line.startswith("* "):
-            out.append(line)
+        if line.startswith("# ") and not title:
+            # "1. Use event streaming ..." -> "Use event streaming ..."
+            title = re.sub(r"^\d+\.\s*", "", line[2:].strip())
+        elif line.startswith("## "):
+            out += ["", f"*{line[3:].strip()}*", ""]
         else:
             out.append(line)
-    return "\n".join(out)
+    body = re.sub(r"\n{3,}", "\n\n", "\n".join(out)).strip()
+    return title, body
+
+
+def shift_headings(text: str, levels: int) -> str:
+    """Demote every AsciiDoc heading by `levels` (== Title -> ==== Title)."""
+    return "\n".join(
+        "=" * levels + line
+        if line.startswith("=") and not line.startswith("|===")
+        else line
+        for line in text.splitlines()
+    )
 
 
 def interface_details() -> str:
@@ -123,26 +140,15 @@ def interface_details() -> str:
         if not doc.exists():
             continue
 
-        body = doc.read_text().strip()
-        # Demote the doc's own "== Interface: A -> B" heading to sit under this
-        # section, and shift everything below it to match.
-        body = "\n".join(
-            "=" + ln if ln.startswith("=") and not ln.startswith("|===") else ln
-            for ln in body.splitlines()
-        )
-        lines += [body, ""]
+        # The doc's own "== Interface: A -> B" becomes "====", sitting under
+        # this section; its inner headings follow at "=====".
+        lines += [shift_headings(doc.read_text().strip(), 2), ""]
 
         adr_dir = folder / "adr"
         if adr_dir.is_dir():
             for adr in sorted(adr_dir.glob("*.md")):
-                lines += [
-                    "===== Decision: " + adr.stem.split("-", 1)[-1].replace("-", " ").title(),
-                    "",
-                    md_to_adoc(adr.read_text().strip())
-                    .replace("=== ", "====== ")
-                    .replace("==== ", "====== "),
-                    "",
-                ]
+                title, body = adr_to_adoc(adr.read_text().strip())
+                lines += [f"===== Decision: {title}", "", body, ""]
 
         lines.append(f"_Source: `models/integrations/{folder.name}/`_")
         lines += ["", "'''", ""]

@@ -30,7 +30,23 @@
 [cols="1,2"]
 |===
 | `make setup` | Download tooling into `.tools/` (one-off)
-| `make validate` | Convention checks + DSL compile of all workspaces
-| `make site` | Full portal build into `public/`
+| `make validate` | Convention checks + DSL compile of the workspace
+| `make site` | Full portal build into `build/site/` (ends with the publication check)
+| `make verify` | Confirm every authored document reached the built site
 | `make serve` | Serve the portal at http://localhost:8080
 |===
+
+== Documentation must be published, not just written
+
+`make site` fails if any authored `.adoc` or ADR is missing from the built
+portal. Documentation is attached to *elements*:
+
+* System docs — `!docs docs` in `system.dsl`.
+* Solution docs and decisions — `!docs ../docs` and `!adrs ../adr` in the
+  solution's `softwareSystem` block.
+* Integration docs and decisions — integrations are *relationships*, which
+  cannot carry documentation, so `scripts/generate_reports.py` inlines them
+  into the generated Interface Catalogue.
+
+Deliberately unpublished paths are listed in `EXCLUDED` in
+`scripts/verify_published.py`; add to it only with a stated reason.

@@ -20,7 +20,8 @@ Built to the specs in [docs/spec/](docs/spec/), primarily the
 ```bash
 make setup      # one-off: downloads pinned tooling into .tools/ (no root needed)
 make validate   # convention checks + authoritative DSL compile of the workspace
-make site       # builds the portal into build/site/
+make site       # builds the portal into build/site/, then verifies publication
+make verify     # confirm every authored document reached the site
 make serve      # http://localhost:8080
 ```
 
@@ -94,7 +95,8 @@ key is `tools` (`.tools/`).
 - All changes via merge request; `CODEOWNERS` routes reviews (federated ownership).
 - The pipeline (`.gitlab-ci.yml`: validate → render → publish) rejects missing
   mandatory properties, unapproved tags, duplicate definitions, naming
-  violations, and unregistered model fragments.
+  violations, unregistered model fragments, and any authored document that
+  does not reach the published portal.
 - Portal publishes to GitLab Pages from `main`.
 
 Start with the [contribution guide](docs/architecture-as-code/contribution-guide.adoc).
