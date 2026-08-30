@@ -1,8 +1,32 @@
 == Enterprise Landscape
 
-The complete landscape of Apex Energy Corporation: people, enterprise systems,
-solutions and the integrations connecting them. System-scoped views (context,
-container, component, deployment) are on each system's page under
+The complete landscape of Apex Energy Corporation. System-scoped views
+(context, container, component, deployment) are on each system's page under
 _Software Systems_.
 
-image::embed:EnterpriseLandscape[Enterprise Landscape]
+++++
+<div class="tabs is-boxed">
+  <ul id="landscape-tabs">
+    <li class="is-active" data-target="landscape-with-people"><a>With people</a></li>
+    <li data-target="landscape-systems-only"><a>Systems only</a></li>
+  </ul>
+</div>
+<div id="landscape-with-people">
+  <img src="embed:EnterpriseLandscape" alt="Enterprise Landscape">
+</div>
+<div id="landscape-systems-only" style="display: none;">
+  <img src="embed:SystemsOnlyLandscape" alt="Systems-Only Landscape">
+</div>
+<script>
+  document.querySelectorAll('#landscape-tabs li').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('#landscape-tabs li').forEach(function (t) {
+        t.classList.remove('is-active');
+        document.getElementById(t.dataset.target).style.display = 'none';
+      });
+      tab.classList.add('is-active');
+      document.getElementById(tab.dataset.target).style.display = '';
+    });
+  });
+</script>
+++++
