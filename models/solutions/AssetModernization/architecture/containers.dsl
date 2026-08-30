@@ -19,6 +19,7 @@ assetModernization = softwareSystem "Asset Modernization" {
     assetSyncService = container "Asset Sync Service" "Validates and synchronises inspection results into AssetHub." "Java 21"
 
     !docs ../docs
+    !adrs ../adr
 }
 
 # Container relationships

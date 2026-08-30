@@ -26,6 +26,7 @@ networkIntelligence = softwareSystem "Network Intelligence" {
     }
 
     !docs ../docs
+    !adrs ../adr
 }
 
 # Container relationships

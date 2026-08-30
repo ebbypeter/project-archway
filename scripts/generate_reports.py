@@ -86,13 +86,67 @@ def interface_catalogue(model) -> str:
                 f"| {relationship.description} "
                 f"| {relationship.technology or '-'}"
             )
-    lines += [
-        "|===",
-        "",
-        "Full interface documentation (authentication, classification, ownership, "
-        "monitoring) lives in `models/integrations/<Source-Target>/docs/`.",
-        "",
-    ]
+    lines += ["|===", ""]
+    lines.append(interface_details())
+    return "\n".join(lines)
+
+
+def md_to_adoc(text: str) -> str:
+    """Convert the small subset of Markdown used in ADRs to AsciiDoc."""
+    out = []
+    for line in text.splitlines():
+        if line.startswith("## "):
+            out.append("==== " + line[3:])
+        elif line.startswith("# "):
+            out.append("=== " + line[2:])
+        elif line.startswith("* "):
+            out.append(line)
+        else:
+            out.append(line)
+    return "\n".join(out)
+
+
+def interface_details() -> str:
+    """Inline each integration's interface documentation and ADRs.
+
+    Structurizr attaches documentation to elements, and integrations are
+    relationships — so `!docs` cannot reach these files. Publishing them here
+    keeps the authored content (authentication, classification, ownership,
+    monitoring) visible in the portal while it stays owned by the integration
+    asset folder.
+    """
+    integrations_dir = ROOT / "models/integrations"
+    lines = ["=== Interface Documentation", ""]
+
+    for folder in sorted(p for p in integrations_dir.iterdir() if p.is_dir()):
+        doc = folder / "docs" / "interface.adoc"
+        if not doc.exists():
+            continue
+
+        body = doc.read_text().strip()
+        # Demote the doc's own "== Interface: A -> B" heading to sit under this
+        # section, and shift everything below it to match.
+        body = "\n".join(
+            "=" + ln if ln.startswith("=") and not ln.startswith("|===") else ln
+            for ln in body.splitlines()
+        )
+        lines += [body, ""]
+
+        adr_dir = folder / "adr"
+        if adr_dir.is_dir():
+            for adr in sorted(adr_dir.glob("*.md")):
+                lines += [
+                    "===== Decision: " + adr.stem.split("-", 1)[-1].replace("-", " ").title(),
+                    "",
+                    md_to_adoc(adr.read_text().strip())
+                    .replace("=== ", "====== ")
+                    .replace("==== ", "====== "),
+                    "",
+                ]
+
+        lines.append(f"_Source: `models/integrations/{folder.name}/`_")
+        lines += ["", "'''", ""]
+
     return "\n".join(lines)
 
 
