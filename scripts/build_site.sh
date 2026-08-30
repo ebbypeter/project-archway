@@ -25,4 +25,5 @@ for ws in "${WORKSPACES[@]}"; do
 done
 
 cp "$ROOT/scripts/portal-index.html" "$ROOT/public/index.html"
+python3 "$ROOT/scripts/inject_nav.py"
 echo "==> Portal built in public/ ($(du -sh "$ROOT/public" | cut -f1))"
