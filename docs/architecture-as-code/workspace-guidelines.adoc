@@ -30,3 +30,11 @@ workspace's `views` block by `!include`:
   with `image::embed:<ViewKey>[]` (see `workspace/docs/0*.adoc`).
 . Creating an additional workspace (e.g. a restricted-audience one) needs
   Architecture Practice approval and its own entry in `scripts/build_site.sh`.
+
+== Multi-page element documentation
+
+An element's `docs/` folder may hold several `.adoc` files; each becomes a
+numbered section under that element's *Documentation* tab, ordered by filename
+(`01-`, `02-`, …). The site generator lists them only on the section index, so
+`scripts/inject_section_nav.py` adds sibling tabs and previous/next links to
+each section page at build time — no action needed when adding a file.

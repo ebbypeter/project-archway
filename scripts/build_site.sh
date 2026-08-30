@@ -15,6 +15,8 @@ echo "==> Generating site"
     --default-branch main \
     --output-dir "$ROOT/build/site")
 
+python3 "$ROOT/scripts/inject_section_nav.py"
+
 echo "==> Portal built in build/site/ ($(du -sh "$ROOT/build/site" | cut -f1))"
 
 python3 "$ROOT/scripts/verify_published.py"
