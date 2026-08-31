@@ -13,6 +13,25 @@ Optional: `runtime`, `database`, `hosting`, `vendor`, `supportTeam`, `repository
 Lifecycle values: `Production`, `Under Upgrade`, `Retiring`.
 Criticality values: `High`, `Medium`, `Low`.
 
+== Portfolio categories
+
+Every system belongs to exactly one portfolio category (Critical Apps, Market
+Apps, Corporate Apps). It is declared as a `group` — which draws the boundary
+on diagrams — and repeated as a tag, because Structurizr views cannot filter on
+group. `make new-system` writes both. Categories are listed in
+`models/shared/vocabulary.json` and enforced by the validator.
+
+See `scale.adoc` for why categories, not a single landscape, are the unit of
+estate-wide diagrams.
+
+== Controlled vocabularies
+
+`lifecycle`, `criticality` and `hosting` accept only the values listed in
+`models/shared/vocabulary.json`; `capability` must have a matching page in
+`docs/capabilities/`. These are pipeline-enforced because a typo in a property
+does not fail anything on its own — it silently produces a wrong inventory
+report.
+
 == Tags are classifications
 
 Only tags from `models/shared/tags/approved-tags.adoc` may be used

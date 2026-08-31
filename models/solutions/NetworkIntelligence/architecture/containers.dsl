@@ -2,31 +2,33 @@
 # Owned by: Solution Architect (see CODEOWNERS).
 # Containers, components and solution-level relationships live here — never in enterprise/.
 
-networkIntelligence = softwareSystem "Network Intelligence" {
-    description "Network Intelligence Program: self-service network analytics for operations and leadership."
+group "Critical Apps" {
+    networkIntelligence = softwareSystem "Network Intelligence" {
+        description "Network Intelligence Program: self-service network analytics for operations and leadership."
 
-    tags "EnterpriseSystem"
+        tags "EnterpriseSystem" "Critical Apps"
 
-    properties {
-        owner "Network Operations"
-        capability "Network Operations"
-        lifecycle "Production"
-        criticality "Medium"
-        runtime ".NET 10"
-        database "PostgreSQL"
-        hosting "Cloud"
+        properties {
+            owner "Network Operations"
+            capability "Network Operations"
+            lifecycle "Production"
+            criticality "Medium"
+            runtime ".NET 10"
+            database "PostgreSQL"
+            hosting "Cloud"
+        }
+
+        networkPortal = container "Network Portal" "Web UI for exploring network intelligence insights." "React"
+        reportingDb = container "Reporting Database" "Pre-aggregated reporting marts." "PostgreSQL"
+
+        analyticsApi = container "Analytics API" "Serves curated network analytics to the portal." ".NET 10" {
+            # Components are defined in their own file per the solution layout standard.
+            !include components.dsl
+        }
+
+        !docs ../docs
+        !adrs ../adr
     }
-
-    networkPortal = container "Network Portal" "Web UI for exploring network intelligence insights." "React"
-    reportingDb = container "Reporting Database" "Pre-aggregated reporting marts." "PostgreSQL"
-
-    analyticsApi = container "Analytics API" "Serves curated network analytics to the portal." ".NET 10" {
-        # Components are defined in their own file per the solution layout standard.
-        !include components.dsl
-    }
-
-    !docs ../docs
-    !adrs ../adr
 }
 
 # Container relationships

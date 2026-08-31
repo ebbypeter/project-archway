@@ -13,11 +13,28 @@
 
 == Adding an enterprise system
 
-. `models/enterprise/systems/<Name>/system.dsl` from `docs/templates/system.dsl.template`.
-. `views.dsl` alongside it (from `docs/templates/system-views.dsl.template`) and an
-  `!include` for it in the views block of `workspace/workspace.dsl`.
-. `docs/01-overview.adoc` alongside it.
-. Include the system from `models/model.dsl`.
+Use the generator — it offers the controlled vocabularies as choices, writes
+every file, and registers the system in the manifest:
+
+[source,bash]
+----
+make new-system
+----
+
+Then fill in the TODOs in the generated `docs/01-overview.adoc` and run
+`make validate`. The standard context view is generated for you; add a
+`views.dsl` beside the system only if you need something other than the
+standard view.
+
+To bootstrap an estate from a CMDB or spreadsheet export:
+
+[source,bash]
+----
+make import-systems FILE=estate.csv
+----
+
+The import validates every row before writing anything, so a large file never
+lands half-imported.
 
 == Adding an integration
 

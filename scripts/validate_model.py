@@ -14,6 +14,7 @@ Exit code is non-zero if any check fails.
 
 from __future__ import annotations
 
+import json
 import re
 import sys
 from collections import Counter
@@ -64,6 +65,46 @@ def main() -> int:
     for name, count in Counter(s.name for s in model.systems).items():
         if count > 1:
             errors.append(f"duplicate software system name '{name}' defined {count} times")
+
+    # 3b. Controlled vocabularies — a typo here silently corrupts the
+    # inventory reports rather than failing anything, so it must be caught.
+    vocabulary = json.loads((ROOT / "models/shared/vocabulary.json").read_text())
+    for prop, allowed in vocabulary["properties"].items():
+        for system in model.systems:
+            value = system.properties.get(prop)
+            if value and value not in allowed:
+                errors.append(
+                    f"{rel(system.file)}: system '{system.name}' has "
+                    f"{prop} '{value}', which is not in the controlled "
+                    f"vocabulary ({', '.join(allowed)})"
+                )
+
+    # 3c. Every system belongs to exactly one portfolio category.
+    categories = set(vocabulary["portfolioCategories"])
+    for system in model.systems:
+        assigned = [t for t in system.tags if t in categories]
+        if len(assigned) != 1:
+            errors.append(
+                f"{rel(system.file)}: system '{system.name}' must carry exactly "
+                f"one portfolio category tag ({', '.join(sorted(categories))}); "
+                f"found {assigned or 'none'}"
+            )
+
+    # 3d. Every declared capability has a documentation page.
+    capability_docs = {
+        p.stem.replace("-", " ").lower()
+        for p in (ROOT / "docs/capabilities").glob("*.adoc")
+    }
+    for system in model.systems:
+        capability = system.properties.get("capability")
+        if capability:
+            slug = capability.replace("&", "and").replace("  ", " ").lower()
+            if slug not in capability_docs and slug.replace(" ", " ") not in capability_docs:
+                errors.append(
+                    f"{rel(system.file)}: system '{system.name}' declares "
+                    f"capability '{capability}' with no matching page in "
+                    f"docs/capabilities/"
+                )
 
     # 4. Naming standards
     for system in model.systems:

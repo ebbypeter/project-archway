@@ -1,9 +1,11 @@
 # Template: models/enterprise/systems/<SystemName>/views.dsl
-# Views live next to the elements they show. After creating this file, add
-#   !include ../models/enterprise/systems/<SystemName>/views.dsl
-# to the views block of workspace/workspace.dsl.
+#
+# ONLY needed when a system wants something other than the standard context
+# view — that one is generated for every system by scripts/generate_views.py.
+#
+# Defining a systemContext here suppresses the generated one for this system.
 
 systemContext systemName "SystemName-Context" "SystemName and its direct dependencies." {
     include *
-    autoLayout lr
+    autoLayout tb
 }

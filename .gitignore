@@ -20,3 +20,6 @@ __pycache__/
 .vscode/
 *.swp
 .DS_Store
+
+# Generated views (recreate with `make views`)
+models/shared/views-generated.dsl

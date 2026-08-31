@@ -1,13 +1,25 @@
 SHELL := /bin/bash
 
-.PHONY: setup validate reports site verify serve clean
+.PHONY: setup new-system import-systems views validate reports site verify serve clean
+
+## new-system: scaffold a new enterprise system (interactive; NAME=X to preseed)
+new-system:
+	@python3 scripts/new_system.py $(NAME)
+
+## import-systems: bulk-create systems from a CSV (FILE=estate.csv)
+import-systems:
+	@python3 scripts/import_systems.py $(FILE)
+
+## views: regenerate standard context views and category landscapes
+views:
+	python3 scripts/generate_views.py
 
 ## setup: download pinned tooling into .tools/ (JRE if needed, structurizr-cli, site-generatr)
 setup:
 	scripts/setup-tools.sh
 
 ## validate: repository convention checks + authoritative DSL compile of the workspace
-validate:
+validate: views
 	python3 scripts/validate_model.py
 	@source scripts/env.sh && echo "==> structurizr-cli validate" && \
 		"$$STRUCTURIZR_CLI" validate -workspace workspace/workspace.dsl

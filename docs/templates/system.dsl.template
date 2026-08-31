@@ -1,31 +1,30 @@
 # Template: models/enterprise/systems/<SystemName>/system.dsl
-# 1. Copy this folder structure; identifier is lowerCamelCase of the system name.
-# 2. Add the include to models/model.dsl (alphabetical within its section).
-# 3. Tags must come from models/shared/tags/approved-tags.adoc.
-# 4. owner, capability, lifecycle, criticality are mandatory (pipeline-enforced).
+#
+# Prefer `make new-system` — it fills this in from the controlled vocabularies
+# and registers the system in models/model.dsl for you. Use this template only
+# when hand-authoring.
+#
+# Notes:
+#  * Every system sits in exactly one portfolio category, declared BOTH as the
+#    group (diagram boundary) and as a tag (views cannot filter on group).
+#  * Omit optional properties entirely — Structurizr rejects empty values
+#    such as runtime "".
+#  * The standard context view is generated; add views.dsl only for custom views.
 
-systemName = softwareSystem "SystemName" {
-    description "One-sentence description of what the system does."
+group "Critical Apps" {
+    systemName = softwareSystem "SystemName" {
+        description "One-sentence description of what the system does."
 
-    tags "EnterpriseSystem"
+        tags "EnterpriseSystem" "Critical Apps"
 
-    properties {
-        owner "Owning business unit"
-        capability "Business capability"
-        lifecycle "Production"
-        criticality "Medium"
-        runtime ""
-        database ""
-        hosting ""
-        supportTeam ""
+        properties {
+            owner "Owning business unit"
+            capability "Business capability (must have a docs/capabilities/ page)"
+            lifecycle "Production"
+            criticality "Medium"
+            hosting "Azure"
+        }
+
+        !docs docs
     }
-
-    perspectives {
-        "Technology" "runtime / database / hosting summary"
-        "Lifecycle" "Production"
-        "Ownership" "Owning business unit"
-        "Criticality" "Medium"
-    }
-
-    !docs docs
 }

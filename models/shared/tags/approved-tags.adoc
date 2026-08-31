@@ -4,7 +4,19 @@ Tags are classifications, never technology versions. Technology metadata belongs
 `properties` (see the modelling standards). The validation pipeline rejects any
 software system tag not listed below.
 
-Approved element tags:
+=== Portfolio categories
+
+Every enterprise system belongs to exactly one portfolio category. The category
+is declared *twice* in the system file — as a `group` (which draws the boundary
+on diagrams) and as a tag (which lets views filter on it, because Structurizr
+has no `element.group==` view expression). `make new-system` writes both from a
+single answer, so authors state it once.
+
+* Critical Apps
+* Market Apps
+* Corporate Apps
+
+=== Classification tags
 
 * EnterpriseSystem
 * CriticalSystem
@@ -12,5 +24,5 @@ Approved element tags:
 * VendorHosted
 * SaaS
 
-To propose a new tag, raise a merge request against this file. Changes require
-Architecture Practice approval (see CODEOWNERS).
+To propose a new tag or category, raise a merge request against this file.
+Changes require Architecture Practice approval (see CODEOWNERS).

@@ -156,7 +156,10 @@ def approved_tags() -> set[str]:
     doc = MODELS_DIR / "shared" / "tags" / "approved-tags.adoc"
     tags = set()
     for line in doc.read_text().splitlines():
-        match = re.match(r'^\*\s+(\w+)\s*$', line)
+        # Bullets naming a tag: single words (EnterpriseSystem) or short
+        # multi-word portfolio categories (Critical Apps). Prose bullets end
+        # in punctuation and are excluded.
+        match = re.match(r'^\*\s+([A-Z][\w]*(?: [A-Z][\w]*)*)\s*$', line)
         if match:
             tags.add(match.group(1))
     return tags

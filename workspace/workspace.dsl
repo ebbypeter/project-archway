@@ -15,6 +15,11 @@ workspace "Apex Energy — Architecture" "Enterprise Architecture Knowledge Repo
 
         # --- Enterprise-level views (owned by this workspace) ---
 
+        # Scale limit (measured): a landscape stops being readable and starts
+        # taking minutes to render past ~60 elements — at 195 it is a 65,000px
+        # strip, at 300 the build stalls. These whole-estate views are viable
+        # for the demo model only; at Transpower scale use the per-category
+        # landscapes in views-generated.dsl and delete these two.
         systemLandscape "EnterpriseLandscape" "All people, enterprise systems, solutions and integrations." {
             include *
             autoLayout tb
@@ -40,14 +45,12 @@ workspace "Apex Energy — Architecture" "Enterprise Architecture Knowledge Repo
             autoLayout lr
         }
 
-        # --- System views, defined next to each system ---
+        # --- Generated views: standard per-system context views and one
+        # landscape per portfolio category. Regenerate with `make views`.
+        # A system only needs a hand-written views.dsl if it wants something
+        # other than the standard context view.
 
-        !include ../models/enterprise/systems/AssetHub/views.dsl
-        !include ../models/enterprise/systems/GridView/views.dsl
-        !include ../models/enterprise/systems/IdentityCloud/views.dsl
-        !include ../models/enterprise/systems/InsightLake/views.dsl
-        !include ../models/enterprise/systems/NotifyNow/views.dsl
-        !include ../models/enterprise/systems/ServiceDeskPro/views.dsl
+        !include ../models/shared/views-generated.dsl
 
         # --- Solution views, defined next to each solution ---
 
