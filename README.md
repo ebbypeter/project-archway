@@ -11,8 +11,8 @@ Built to the specs in [docs/spec/](docs/spec/), primarily the
 
 | | URL |
 |---|---|
-| Repository | _TODO: set once the GitLab remote exists_ |
-| Architecture portal | _TODO: GitLab Pages URL, e.g. `https://<group>.gitlab.io/<project>/`_ |
+| Repository | https://github.com/ebbypeter/project-archway |
+| Architecture portal | https://ebbypeter.github.io/project-archway/ (once GitHub Pages is enabled) |
 | Local preview | http://localhost:8080 (after `make site && make serve`) |
 
 ## Quick start
@@ -70,20 +70,30 @@ Exact versions are pinned at the top of
 
 ### CI
 
-[.gitlab-ci.yml](.gitlab-ci.yml) runs the same targets on `eclipse-temurin:21`,
-apt-installing `python3 unzip make curl ca-certificates graphviz`, then calling
-`make validate` / `make reports` / `scripts/build_site.sh`. The tooling cache
-key is `tools` (`.tools/`).
+Both pipelines are thin wrappers over the same Make targets — all logic lives in
+`scripts/`, so a CI run and a local run do the same thing.
+
+| Pipeline | Where it runs | Publishes to |
+|---|---|---|
+| [.github/workflows/portal.yml](.github/workflows/portal.yml) | GitHub Actions — the active one | GitHub Pages, from the default branch |
+| [.gitlab-ci.yml](.gitlab-ci.yml) | GitLab CI — retained for the Transpower environment | GitLab Pages |
+
+Every branch and pull request builds and uploads the portal as an artifact, so a
+change can be reviewed as rendered diagrams rather than as a DSL diff.
+
+The portal is organised by branch: `scripts/build_site.sh` derives the label
+from the current branch (or the CI ref), so a `develop` build publishes at
+`/develop/`. Override with `SITE_BRANCH=name`.
 
 ## What's here
 
 | Path | What it is |
 |---|---|
 | `models/model.dsl` | Canonical include manifest (pipeline-enforced) |
-| `models/enterprise/` | People and systems — defined once, reused everywhere; each system's views live beside it (`views.dsl`) |
+| `models/enterprise/` | People and systems — defined once, reused everywhere. Standard views are generated; add a `views.dsl` beside a system only for custom ones |
 | `models/integrations/` | First-class integration assets (DSL + interface doc + ADRs) |
 | `models/solutions/` | Solution architectures (containers, components, deployment, views, docs, ADRs) |
-| `models/shared/` | Approved tags and shared diagram styles |
+| `models/shared/` | Controlled vocabularies (`vocabulary.json`), diagram styles, generated views |
 | `workspace/` | The single published workspace: enterprise views, portal docs, ADRs |
 | `docs/` | Practice standards, capabilities, policies (+ original specs) |
 | `docs/templates/` | Starting points for new systems, integrations, ADRs |
@@ -92,11 +102,12 @@ key is `tools` (`.tools/`).
 
 ## Governance
 
-- All changes via merge request; `CODEOWNERS` routes reviews (federated ownership).
-- The pipeline (`.gitlab-ci.yml`: validate → render → publish) rejects missing
-  mandatory properties, unapproved tags, duplicate definitions, naming
-  violations, unregistered model fragments, and any authored document that
-  does not reach the published portal.
-- Portal publishes to GitLab Pages from `main`.
+- All changes via pull/merge request; `CODEOWNERS` routes reviews (federated ownership).
+- The pipeline (validate → render → publish) rejects missing mandatory
+  properties, values outside the controlled vocabularies, systems without
+  exactly one portfolio category, capabilities with no documentation page,
+  unapproved tags, duplicate definitions, naming violations, unregistered model
+  fragments, and any authored document that does not reach the published portal.
+- Portal publishes from the default branch: GitHub Pages today, GitLab Pages in the Transpower environment.
 
 Start with the [contribution guide](docs/architecture-as-code/contribution-guide.adoc).

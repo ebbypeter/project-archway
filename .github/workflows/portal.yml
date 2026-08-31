@@ -1,0 +1,79 @@
+# Architecture portal — validate, render, publish.
+#
+# A thin wrapper: every step below is a Make target that runs identically on a
+# developer machine. Keep logic in scripts/, not here.
+#
+# GitLab CI (.gitlab-ci.yml) wraps the same targets for the Transpower
+# environment. Both must stay in step; neither may grow its own build logic.
+name: portal
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+  workflow_dispatch:
+
+# Allow one publish at a time; let a newer commit supersede an in-flight run.
+concurrency:
+  group: portal-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      # setup-tools.sh skips its own JRE and Graphviz downloads when the host
+      # already provides them, so this only fetches the two Structurizr tools.
+      - name: Install Graphviz
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq graphviz
+
+      - name: Cache Structurizr tooling
+        uses: actions/cache@v4
+        with:
+          path: .tools
+          key: tools-${{ hashFiles('scripts/setup-tools.sh') }}
+
+      - name: Install tooling
+        run: make setup
+
+      - name: Validate model
+        run: make validate
+
+      - name: Build portal
+        run: make site
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: portal-${{ github.ref_name }}
+          path: build/site
+          retention-days: 14
+
+      # Pages needs its own artifact format, and only on the default branch.
+      - uses: actions/upload-pages-artifact@v3
+        if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+        with:
+          path: build/site
+
+  publish:
+    needs: build
+    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4

@@ -1,5 +1,12 @@
 # Thin CI wrapper — all logic lives in scripts/ and the Makefile and runs
 # identically on a developer machine (`make validate`, `make site`).
+#
+# Retained for the Transpower (GitLab) environment. The active pipeline for
+# personal development is .github/workflows/portal.yml. Both wrap the same Make
+# targets; neither may grow its own build logic.
+#
+# build_site.sh reads CI_COMMIT_REF_NAME, so the portal is published under the
+# branch being built.
 
 image: eclipse-temurin:21
 
