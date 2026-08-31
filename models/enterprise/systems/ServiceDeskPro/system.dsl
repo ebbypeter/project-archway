@@ -1,8 +1,8 @@
-group "Corporate Apps" {
+group "Enterprise Apps" {
     serviceDeskPro = softwareSystem "ServiceDeskPro" {
         description "IT service management platform for incidents, requests and changes."
 
-        tags "EnterpriseSystem" "Corporate Apps" "SaaS" "VendorHosted"
+        tags "EnterpriseSystem" "Enterprise Apps" "SaaS" "VendorHosted"
 
         properties {
             owner "Corporate Services"

@@ -12,11 +12,19 @@ on diagrams) and as a tag (which lets views filter on it, because Structurizr
 has no `element.group==` view expression). `make new-system` writes both from a
 single answer, so authors state it once.
 
-* Critical Apps
-* Market Apps
-* Corporate Apps
+* Critical Apps — orange
+* Market Apps — blue
+* Enterprise Apps — green
+* External Apps — grey
+
+The portfolio determines the *fill colour* of the element on every diagram
+(see `models/shared/styles/element-styles.dsl`).
 
 === Classification tags
+
+Classifications style the *border*, never the fill, so they compose with any
+portfolio colour: `CriticalSystem` draws a thick outline, `VendorHosted` a
+dashed one.
 
 * EnterpriseSystem
 * CriticalSystem

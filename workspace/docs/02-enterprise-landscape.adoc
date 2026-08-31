@@ -4,6 +4,35 @@ The complete landscape of Apex Energy Corporation. System-scoped views
 (context, container, component, deployment) are on each system's page under
 _Software Systems_.
 
+=== Reading the diagrams
+
+Fill colour is the *portfolio*; the border describes hosting and criticality.
+
+++++
+<table style="border-collapse:collapse;margin:1rem 0;">
+  <tr>
+    <td style="padding:.35rem .6rem;"><span style="display:inline-block;width:2.2rem;height:1.1rem;background:#c05621;border-radius:3px;vertical-align:middle;"></span></td>
+    <td style="padding:.35rem .6rem;">Critical Apps</td>
+    <td style="padding:.35rem .6rem;"><span style="display:inline-block;width:2.2rem;height:1.1rem;background:#1f5fa9;border-radius:3px;vertical-align:middle;"></span></td>
+    <td style="padding:.35rem .6rem;">Market Apps</td>
+  </tr>
+  <tr>
+    <td style="padding:.35rem .6rem;"><span style="display:inline-block;width:2.2rem;height:1.1rem;background:#2f7d4f;border-radius:3px;vertical-align:middle;"></span></td>
+    <td style="padding:.35rem .6rem;">Enterprise Apps</td>
+    <td style="padding:.35rem .6rem;"><span style="display:inline-block;width:2.2rem;height:1.1rem;background:#6b7280;border-radius:3px;vertical-align:middle;"></span></td>
+    <td style="padding:.35rem .6rem;">External Apps</td>
+  </tr>
+  <tr>
+    <td style="padding:.35rem .6rem;"><span style="display:inline-block;width:2.2rem;height:1.1rem;background:transparent;border:3px solid #1a1a1a;border-radius:3px;vertical-align:middle;"></span></td>
+    <td style="padding:.35rem .6rem;">Business-critical</td>
+    <td style="padding:.35rem .6rem;"><span style="display:inline-block;width:2.2rem;height:1.1rem;background:transparent;border:3px dashed #1a1a1a;border-radius:3px;vertical-align:middle;"></span></td>
+    <td style="padding:.35rem .6rem;">Vendor-hosted</td>
+  </tr>
+</table>
+++++
+
+Systems of the same portfolio are also drawn inside a labelled boundary box.
+
 // The tab strip below replicates the markup of the native per-system page
 // tabs (Info / Context views / ...), so both landscape variants present the
 // same way — but toggled in place, since this is a single documentation page.

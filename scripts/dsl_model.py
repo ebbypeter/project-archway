@@ -151,15 +151,14 @@ def parse_model() -> Model:
     return model
 
 
+def vocabulary() -> dict:
+    """The controlled vocabularies — the single source of truth for tags,
+    portfolios and property values. approved-tags.adoc documents these for
+    humans; it is not parsed."""
+    import json
+    return json.loads((MODELS_DIR / "shared" / "vocabulary.json").read_text())
+
+
 def approved_tags() -> set[str]:
-    """Approved tags parsed from the bullet list in the governance doc."""
-    doc = MODELS_DIR / "shared" / "tags" / "approved-tags.adoc"
-    tags = set()
-    for line in doc.read_text().splitlines():
-        # Bullets naming a tag: single words (EnterpriseSystem) or short
-        # multi-word portfolio categories (Critical Apps). Prose bullets end
-        # in punctuation and are excluded.
-        match = re.match(r'^\*\s+([A-Z][\w]*(?: [A-Z][\w]*)*)\s*$', line)
-        if match:
-            tags.add(match.group(1))
-    return tags
+    vocab = vocabulary()
+    return set(vocab["portfolioCategories"]) | set(vocab["classificationTags"])

@@ -1,8 +1,8 @@
-group "Corporate Apps" {
+group "Enterprise Apps" {
     notifyNow = softwareSystem "NotifyNow" {
         description "Notification platform for email, SMS and push messages."
 
-        tags "EnterpriseSystem" "Corporate Apps" "Platform" "SaaS" "VendorHosted"
+        tags "EnterpriseSystem" "Enterprise Apps" "Platform" "SaaS" "VendorHosted"
 
         properties {
             owner "Corporate Services"

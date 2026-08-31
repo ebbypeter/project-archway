@@ -1,20 +1,39 @@
 {
   "_comment": "Controlled vocabularies enforced by scripts/validate_model.py and offered by scripts/new_system.py. Architecture Practice owns this file (see CODEOWNERS).",
-
   "portfolioCategories": [
     "Critical Apps",
     "Market Apps",
-    "Corporate Apps"
+    "Enterprise Apps",
+    "External Apps"
   ],
-
+  "classificationTags": [
+    "EnterpriseSystem",
+    "CriticalSystem",
+    "Platform",
+    "VendorHosted",
+    "SaaS"
+  ],
   "properties": {
-    "lifecycle": ["Production", "Under Upgrade", "Legacy", "Retiring"],
-    "criticality": ["High", "Medium", "Low"],
-    "hosting": ["Azure", "AWS", "Cloud", "On-premises", "SaaS"]
+    "lifecycle": [
+      "Production",
+      "Under Upgrade",
+      "Legacy",
+      "Retiring"
+    ],
+    "criticality": [
+      "High",
+      "Medium",
+      "Low"
+    ],
+    "hosting": [
+      "Azure",
+      "AWS",
+      "Cloud",
+      "On-premises",
+      "SaaS"
+    ]
   },
-
   "_openProperties": "owner, capability, runtime, database, vendor, supportTeam and repository are free text. 'capability' is cross-checked against docs/capabilities/*.adoc instead of a list here.",
-
   "relationshipVerbs": [
     "Uses",
     "Publishes",

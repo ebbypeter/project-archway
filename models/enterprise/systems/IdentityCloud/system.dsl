@@ -1,8 +1,8 @@
-group "Corporate Apps" {
+group "External Apps" {
     identityCloud = softwareSystem "IdentityCloud" {
         description "Enterprise identity provider for authentication and single sign-on."
 
-        tags "EnterpriseSystem" "Corporate Apps" "CriticalSystem" "SaaS" "VendorHosted"
+        tags "EnterpriseSystem" "External Apps" "CriticalSystem" "SaaS" "VendorHosted"
 
         properties {
             owner "Corporate Services"
