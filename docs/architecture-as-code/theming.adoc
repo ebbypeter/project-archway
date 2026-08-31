@@ -1,0 +1,84 @@
+= Theming the Portal
+
+== Where the portal's appearance comes from
+
+[cols="2,3",options="header"]
+|===
+| Layer | Where it lives
+| HTML structure | Kotlin code compiled into the site generator's JAR. *Not* files, and not overridable — changing page structure means forking the generator.
+| Base stylesheet | `assets/css/style.css` inside the JAR (~90 lines), plus `admonition.css` and `treeview.css`.
+| CSS framework | https://bulma.io[Bulma], loaded from a CDN. Page markup is standard Bulma, so its classes are stable targets.
+| Brand colours | `build/site/main/style-branding.css`, generated at build time from the `generatr.style.colors.*` workspace properties.
+| Everything else | `workspace/site/custom.css` — our file, in this repository.
+|===
+
+So: the *structure* is fixed, the *appearance* is fully ours.
+
+== The two knobs
+
+=== 1. Workspace properties
+
+Set in the `views { properties { … } }` block of `workspace/workspace.dsl`:
+
+[cols="2,3",options="header"]
+|===
+| Property | Effect
+| `generatr.style.colors.primary` | Header bar and active menu background
+| `generatr.style.colors.secondary` | Text colour on the header bar
+| `generatr.style.customStylesheet` | Stylesheet to link on every page (`custom.css`)
+| `generatr.style.logoPath` | Logo shown in the header
+| `generatr.style.faviconPath` | Browser tab icon
+| `generatr.site.theme` | `light`, `dark`, or `auto` (follows the reader's OS)
+| `generatr.site.cdn` | Base URL for Bulma/mermaid — repoint at an internal mirror if the network blocks CDNs
+|===
+
+=== 2. Assets directory
+
+`workspace/site/` is passed to the generator with `--assets-dir site`
+(see `scripts/build_site.sh`); its contents are copied into the published
+site. Put `custom.css`, `logo.png` and `favicon.ico` here.
+
+== Rebranding
+
+Edit the token block at the top of `workspace/site/custom.css` and the two
+colour properties in `workspace/workspace.dsl`. Nothing else should need to
+change:
+
+[source,css]
+----
+:root {
+  --brand:          #0f3d52;   /* header bar, active nav */
+  --brand-contrast: #ffffff;
+  --brand-accent:   #1f7a99;   /* links, focus rings */
+  --brand-surface:  #f7f9fa;
+}
+----
+
+Drop `logo.png` and `favicon.ico` into `workspace/site/` and point the
+`generatr.style.logoPath` / `faviconPath` properties at them.
+
+== Dark mode
+
+The portal ships a light/dark toggle which sets `data-theme="dark"` on
+`<html>`. Every token in `custom.css` has a dark variant, so restyle by
+editing tokens rather than adding rules. Diagrams are rendered for a light
+ground, so figures keep a light backing in dark mode deliberately.
+
+== Reusable classes
+
+`custom.css` defines portfolio swatches for use in any documentation page,
+inside an AsciiDoc passthrough block:
+
+[source,html]
+----
+<span class="portfolio critical"></span> Critical Apps
+----
+
+Available: `critical`, `market`, `enterprise`, `external`. They read their
+colours from the same tokens as the diagrams, so the key on the Enterprise
+Landscape page cannot drift from `models/shared/styles/element-styles.dsl`
+without someone noticing.
+
+WARNING: The portfolio colours appear in two places — `custom.css` (for the
+web page) and `element-styles.dsl` (for the diagrams). Structurizr styles
+cannot read CSS, so changing a portfolio colour means editing both.

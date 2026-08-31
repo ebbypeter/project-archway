@@ -11,6 +11,15 @@ workspace "Apex Energy — Architecture" "Enterprise Architecture Knowledge Repo
 
         properties {
             "generatr.site.exporter" "structurizr"
+
+            # Theming. Assets live in workspace/site/ and are supplied to the
+            # generator with --assets-dir (see scripts/build_site.sh).
+            # Everything else visual is in site/custom.css — the generator's
+            # HTML templates are compiled into its JAR and cannot be overridden.
+            "generatr.style.colors.primary" "#0f3d52"
+            "generatr.style.colors.secondary" "#ffffff"
+            "generatr.style.customStylesheet" "custom.css"
+            "generatr.site.theme" "auto"
         }
 
         # --- Enterprise-level views (owned by this workspace) ---

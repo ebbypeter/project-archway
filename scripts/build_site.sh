@@ -13,6 +13,7 @@ echo "==> Generating site"
 (cd "$ROOT/workspace" && "$SITE_GENERATR" generate-site \
     --workspace-file workspace.dsl \
     --default-branch main \
+    --assets-dir site \
     --output-dir "$ROOT/build/site")
 
 python3 "$ROOT/scripts/inject_section_nav.py"

@@ -1,0 +1,113 @@
+/* ===================================================================
+   Architecture portal theme
+   ===================================================================
+   This is the ONLY place the portal's appearance can be changed. The
+   generator's HTML templates are compiled into its JAR and cannot be
+   overridden; everything visual is reachable from here plus the
+   generatr.style.* properties in workspace/workspace.dsl.
+
+   TO REBRAND: change the tokens in the :root block below. Nothing
+   further down should need editing.
+
+   The page markup is Bulma. `data-theme="dark"` is set on <html> by the
+   portal's own light/dark toggle, so every token has a dark variant.
+   =================================================================== */
+
+:root {
+  /* --- brand tokens: change these ------------------------------- */
+  --brand:            #0f3d52;   /* header bar, active nav            */
+  --brand-contrast:   #ffffff;   /* text on the brand colour          */
+  --brand-accent:     #1f7a99;   /* links, focus rings                */
+  --brand-surface:    #f7f9fa;   /* page background                   */
+  --brand-border:     #d8e0e5;
+
+  /* --- portfolio colours: keep in step with
+         models/shared/styles/element-styles.dsl ------------------- */
+  --portfolio-critical:   #c05621;
+  --portfolio-market:     #1f5fa9;
+  --portfolio-enterprise: #2f7d4f;
+  --portfolio-external:   #6b7280;
+}
+
+html[data-theme="dark"] {
+  --brand:          #0b2a39;
+  --brand-contrast: #e6edf3;
+  --brand-accent:   #4db3d3;
+  --brand-surface:  #0d1117;
+  --brand-border:   #30363d;
+}
+
+/* --- application of the tokens ---------------------------------- */
+
+body {
+  background-color: var(--brand-surface);
+}
+
+/* The generator emits .has-site-branding on the header bar and active
+   menu items; generatr.style.colors.* fills those with !important, so
+   these rules restate the same tokens for everything else. */
+.navbar .has-site-branding {
+  background-color: var(--brand) !important;
+  color: var(--brand-contrast) !important;
+}
+
+.content a,
+.menu-list a:hover {
+  color: var(--brand-accent);
+}
+
+.tabs a:hover {
+  border-bottom-color: var(--brand-accent);
+}
+
+.tabs li.is-active a,
+.tabs a.is-active {
+  color: var(--brand-accent) !important;
+  border-bottom-color: var(--brand-accent) !important;
+}
+
+/* Tables: the inventory and interface catalogue are large, so give them
+   a readable rhythm and a sticky header. */
+.content table thead th {
+  position: sticky;
+  top: 0;
+  background: var(--brand-surface);
+  border-bottom: 2px solid var(--brand-border);
+}
+
+.content table td,
+.content table th {
+  padding: .45rem .6rem;
+}
+
+/* Diagrams: give the SVG room and a light frame so it reads as a figure
+   rather than floating in the page. */
+.content figure svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.content figure {
+  border: 1px solid var(--brand-border);
+  border-radius: 6px;
+  padding: .75rem;
+  background: #ffffff;
+}
+
+html[data-theme="dark"] .content figure {
+  background: #f4f6f8;  /* diagrams are drawn for a light ground */
+}
+
+/* Portfolio swatches, usable from any documentation page:
+   <span class="portfolio critical"></span> */
+.portfolio {
+  display: inline-block;
+  width: 2.2rem;
+  height: 1.1rem;
+  border-radius: 3px;
+  vertical-align: middle;
+}
+.portfolio.critical   { background: var(--portfolio-critical); }
+.portfolio.market     { background: var(--portfolio-market); }
+.portfolio.enterprise { background: var(--portfolio-enterprise); }
+.portfolio.external   { background: var(--portfolio-external); }
