@@ -85,6 +85,31 @@ The portal is organised by branch: `scripts/build_site.sh` derives the label
 from the current branch (or the CI ref), so a `develop` build publishes at
 `/develop/`. Override with `SITE_BRANCH=name`.
 
+### Versioning
+
+The version shown in the portal menu comes from `git describe`, so it is
+meaningful in every state without any bookkeeping:
+
+| Repository state | Version shown |
+|---|---|
+| Tagged commit | `v1.2.0` |
+| 3 commits past the tag | `v1.2.0-3-g784ebc9` |
+| Never tagged | `784ebc9` (short SHA) |
+| Uncommitted changes present | suffixed `-dirty` |
+
+To cut a release version, tag it:
+
+```bash
+git tag -a v1.0.0 -m "First published estate"
+git push origin v1.0.0
+```
+
+Override for a one-off build with `SITE_VERSION=2026.08-rc1 make site`.
+
+The `-dirty` suffix is deliberate: it marks a portal built from uncommitted
+work, so a reader can tell whether what they are looking at came from reviewed,
+merged content.
+
 ## What's here
 
 | Path | What it is |

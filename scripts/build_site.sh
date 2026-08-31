@@ -33,14 +33,33 @@ resolve_branch() {
 # the generator's relative asset links. Flatten to a single path segment.
 BRANCH="$(resolve_branch | tr '/' '-')"
 
+# The version shown in the portal's menu. Without this the generator stamps
+# every build "0.0.0", which tells a reader nothing about what they are looking
+# at. `git describe` is informative in every state:
+#   tagged commit      -> v1.2.0
+#   3 commits later    -> v1.2.0-3-g784ebc9
+#   never tagged       -> 784ebc9        (--always falls back to the SHA)
+#   uncommitted edits  -> ...-dirty      (built from unreviewed work)
+# Set a release version by tagging:  git tag -a v1.0.0 -m "..."
+#   SITE_VERSION=x  overrides everything.
+resolve_version() {
+    if [ -n "${SITE_VERSION:-}" ]; then
+        echo "$SITE_VERSION"; return
+    fi
+    git -C "$ROOT" describe --tags --always --dirty 2>/dev/null || echo "0.0.0"
+}
+
+VERSION="$(resolve_version)"
+
 python3 "$ROOT/scripts/aggregate_docs.py"
 
 rm -rf "$ROOT/build/site"
 
-echo "==> Generating site for branch '$BRANCH'"
+echo "==> Generating site for branch '$BRANCH' (version $VERSION)"
 (cd "$ROOT/workspace" && "$SITE_GENERATR" generate-site \
     --workspace-file workspace.dsl \
     --default-branch "$BRANCH" \
+    --version "$VERSION" \
     --assets-dir site \
     --output-dir "$ROOT/build/site")
 
