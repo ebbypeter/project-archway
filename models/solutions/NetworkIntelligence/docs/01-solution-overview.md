@@ -16,3 +16,10 @@ Production runs on the Apex Cloud Kubernetes cluster with a managed PostgreSQL
 service (`architecture/deployment.dsl`, shown in the deployment view).
 
 Authentication is via IdentityCloud (OIDC). See the solution ADRs for key decisions.
+
+### How a dashboard request is served
+
+Inside the Analytics API, the pre-aggregated figures and the detail rows are
+fetched side by side (steps 3a/3b and 4a/4b):
+
+![How a dashboard request is served](embed:AnalyticsApi-DashboardQuery)

@@ -36,3 +36,31 @@ numbered section under that element's **Documentation** tab, ordered by filename
 (`01-`, `02-`, …). The site generator lists them only on the section index, so
 `scripts/inject_section_nav.py` adds sibling tabs and previous/next links to
 each section page at build time — no action needed when adding a file.
+
+## Hand-written views
+
+The generated views show everything around an element. When a diagram should
+tell one specific story, write the view by hand in the asset's `views.dsl`. It
+is still drawn from the model — every element and step must exist there — so
+it cannot drift the way a drawing can. Examples in this repository:
+
+| Kind | Example | Where it is shown |
+|---|---|---|
+| Dynamic view of a user journey, at container level | `AssetModernization-InspectionSync` in `models/solutions/AssetModernization/views/views.dsl` | Asset Modernization → *Dynamic views*, and the *User Journeys* page |
+| Focused view — the full container view minus people, for an integration review | `AssetModernization-Integration`, same file | Asset Modernization → *Container views*, and the *Security and Integration* page |
+| Dynamic view inside one container, at component level, with parallel steps (`3a:` / `3b:`) | `AnalyticsApi-DashboardQuery` in `models/solutions/NetworkIntelligence/views/views.dsl` | Network Intelligence → *Dynamic views*, and the solution overview |
+
+Each step of a dynamic view follows an existing relationship; the text after
+it describes the step in this story and may differ from the relationship's own
+description. Embed any view on a documentation page with
+`![Title](embed:<ViewKey>)`.
+
+### Layout is automatic
+
+Element positions cannot be arranged by hand in this portal. The site
+generator draws every diagram through PlantUML, which always computes its own
+layout (with Graphviz) and ignores stored positions — so layout saved by the
+Structurizr editor in a `workspace.json` has no effect here. What an author
+controls is the layout direction (`autoLayout lr` or `tb`) and what the view
+includes and excludes; a crowded diagram is best fixed by narrowing its scope
+or splitting it into two views.

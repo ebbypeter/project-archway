@@ -18,6 +18,8 @@ user's queued uploads are rejected at the Sync Service.
 
 ### Interfaces
 
+![Containers and the enterprise systems they integrate with](embed:AssetModernization-Integration)
+
 | Interface | Notes |
 |---|---|
 | Field Inspection App -> Asset Sync Service | HTTPS/JSON, at-least-once, resumable. Internal to the solution. |

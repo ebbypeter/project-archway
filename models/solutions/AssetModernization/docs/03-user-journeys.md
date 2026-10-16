@@ -1,5 +1,10 @@
 ## User Journeys
 
+The whole round at a glance — each numbered step is one hop through the
+architecture:
+
+![Inspection round, from planning to AssetHub](embed:AssetModernization-InspectionSync)
+
 ### Planning an inspection round (Asset Planner)
 
 1. The Asset Planner reviews due and overdue inspections in the Field
