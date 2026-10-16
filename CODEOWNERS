@@ -1,4 +1,4 @@
-# Federated ownership (see docs/architecture-as-code/contribution-guide.adoc).
+# Federated ownership (see docs/architecture-as-code/contribution-guide.md).
 # Group handles are placeholders — replace with real GitLab groups on rollout.
 
 # Default: Architecture Practice reviews everything not claimed below.

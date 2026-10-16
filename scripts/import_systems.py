@@ -34,7 +34,7 @@ OPTIONAL = ["description", "hosting", "runtime", "database", "supportTeam", "ven
 def known_capabilities() -> set[str]:
     return {
         p.stem.replace("-", " ").lower()
-        for p in (ROOT / "docs/capabilities").glob("*.adoc")
+        for p in (ROOT / "docs/capabilities").glob("*.md")
     }
 
 

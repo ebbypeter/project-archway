@@ -1,0 +1,15 @@
+## NotifyNow
+
+NotifyNow is the enterprise notification platform, delivering email, SMS and push
+notifications on behalf of other systems.
+
+### Key Facts
+
+| Fact | Value |
+|---|---|
+| Owner | Corporate Services |
+| Capability | Corporate Services |
+| Lifecycle | Production |
+| Criticality | Medium |
+| Hosting | SaaS |
+| Vendor | NotifyNow Inc. |

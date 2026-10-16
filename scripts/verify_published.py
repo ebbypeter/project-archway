@@ -35,10 +35,12 @@ SEARCH_ROOTS = ["models", "workspace", "docs"]
 
 TAG_RE = re.compile(r"<(script|style)\b.*?</\1>|<[^>]+>", re.S | re.I)
 NON_ALNUM_RE = re.compile(r"[^a-z0-9]+")
+HTML_COMMENT_RE = re.compile(r"<!--.*?-->", re.S)
+MD_LINK_RE = re.compile(r"\[([^\]]*)\]\([^)]*\)")
 
-# AsciiDoc / Markdown lines that carry markup rather than publishable prose.
+# Markdown lines that carry markup rather than publishable prose.
 MARKUP_PREFIXES = (
-    "//", "++++", "image::", "[cols", "[options", "|===", "----", "'''",
+    "```", "![", "---", "|---", "<table", "</table", "<tr", "</tr", "<td",
     "<div", "</div", "<img", "<script", "</script", "<ul", "</ul", "<li",
     "<a ", "</a", "document.", "});", "}", "{",
 )
@@ -62,12 +64,14 @@ def site_text() -> str:
 def prose(doc: Path) -> str:
     """The publishable prose of a document, normalized."""
     kept = []
-    for line in doc.read_text().splitlines():
+    # Comments never render, and a link renders as its text only.
+    text = MD_LINK_RE.sub(r"\1", HTML_COMMENT_RE.sub("", doc.read_text()))
+    for line in text.splitlines():
         stripped = line.strip()
         if not stripped or stripped.startswith(MARKUP_PREFIXES):
             continue
-        # Headings and list markers: keep the text, drop the marker.
-        stripped = re.sub(r"^[=#*.]+\s*", "", stripped)
+        # Headings, quotes and list markers: keep the text, drop the marker.
+        stripped = re.sub(r"^(?:[#*>]+|\d+\.)\s*", "", stripped)
         # Table rows: keep the cell text.
         stripped = stripped.replace("|", " ")
         kept.append(stripped)
@@ -90,7 +94,7 @@ def authored_docs() -> list[Path]:
         base = ROOT / root
         if not base.is_dir():
             continue
-        for pattern in ("*.adoc", "*.md"):
+        for pattern in ("*.md",):
             for doc in base.rglob(pattern):
                 rel = doc.relative_to(ROOT).as_posix()
                 if any(rel.startswith(ex + "/") for ex in EXCLUDED):

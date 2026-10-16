@@ -1,0 +1,22 @@
+## GridView
+
+GridView is the operational network monitoring platform for Apex Energy Corporation.
+It provides real-time visibility of the energy network to Operations Engineers.
+
+### Responsibilities
+
+* Real-time monitoring of network state and alarms
+* Operational telemetry capture
+* Publishing operational telemetry to InsightLake for analytics
+
+### Key Facts
+
+| Fact | Value |
+|---|---|
+| Owner | Network Operations |
+| Capability | Network Operations |
+| Lifecycle | Production |
+| Criticality | High |
+| Runtime | .NET 10 |
+| Database | PostgreSQL |
+| Hosting | Cloud |

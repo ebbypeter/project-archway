@@ -6,7 +6,7 @@ build/
 public/
 
 # Generated documentation (recreate with `make reports`)
-*.gen.adoc
+*.gen.md
 
 # structurizr-cli working files
 .structurizr/

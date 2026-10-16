@@ -153,7 +153,7 @@ def parse_model() -> Model:
 
 def vocabulary() -> dict:
     """The controlled vocabularies — the single source of truth for tags,
-    portfolios and property values. approved-tags.adoc documents these for
+    portfolios and property values. approved-tags.md documents these for
     humans; it is not parsed."""
     import json
     return json.loads((MODELS_DIR / "shared" / "vocabulary.json").read_text())

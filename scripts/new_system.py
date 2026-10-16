@@ -59,7 +59,7 @@ def capabilities() -> list[str]:
     """Capabilities that have a documentation page — the validator requires one."""
     return sorted(
         p.stem.replace("-", " ").title().replace(" And ", " & ")
-        for p in (ROOT / "docs/capabilities").glob("*.adoc")
+        for p in (ROOT / "docs/capabilities").glob("*.md")
     )
 
 
@@ -92,24 +92,23 @@ def scaffold(name: str, category: str, properties: dict[str, str],
 }}
 ''')
 
-    (folder / "docs" / "01-overview.adoc").write_text(f'''== {name}
+    (folder / "docs" / "01-overview.md").write_text(f'''## {name}
 
 TODO: what this system does, and why it exists.
 
-=== Responsibilities
+### Responsibilities
 
 * TODO
 
-=== Key Facts
+### Key Facts
 
-[cols="1,2"]
-|===
-| Owner | {properties.get('owner', 'TODO')}
-| Capability | {properties.get('capability', 'TODO')}
-| Portfolio Category | {category}
-| Lifecycle | {properties.get('lifecycle', 'TODO')}
-| Criticality | {properties.get('criticality', 'TODO')}
-|===
+| Fact | Value |
+|---|---|
+| Owner | {properties.get('owner', 'TODO')} |
+| Capability | {properties.get('capability', 'TODO')} |
+| Portfolio Category | {category} |
+| Lifecycle | {properties.get('lifecycle', 'TODO')} |
+| Criticality | {properties.get('criticality', 'TODO')} |
 ''')
 
     # Register in the manifest, in the systems block, alphabetically.
@@ -128,7 +127,7 @@ TODO: what this system does, and why it exists.
         print(f"""
 Created:
   {(folder / 'system.dsl').relative_to(ROOT)}
-  {(folder / 'docs/01-overview.adoc').relative_to(ROOT)}
+  {(folder / 'docs/01-overview.md').relative_to(ROOT)}
   registered in {MANIFEST.relative_to(ROOT)}
 
 The standard context view is generated automatically — run `make views`.

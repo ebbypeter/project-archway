@@ -1,7 +1,7 @@
 # Apex Energy — Enterprise Architecture Knowledge Repository
 
 Architecture-as-Code demo repository for the fictional **Apex Energy
-Corporation**: a single Structurizr DSL model (C4), AsciiDoc documentation, and
+Corporation**: a single Structurizr DSL model (C4), Markdown documentation, and
 pipelines that validate the model and publish a static architecture portal.
 
 Built to the specs in [docs/spec/](docs/spec/), primarily the
@@ -48,7 +48,7 @@ no root, nothing installed system-wide. `.tools/` is gitignored; re-run
 |---|---|---|---|
 | Eclipse Temurin JRE | 21 (LTS) | Runs both Structurizr tools. Skipped if the host already has `java` | [adoptium.net](https://adoptium.net/) |
 | Structurizr CLI | `v2025.11.09` (bundles structurizr-java 5.0.2) | Authoritative DSL compile/validate; JSON + PlantUML export | [github.com/structurizr/cli](https://github.com/structurizr/cli) |
-| Structurizr Site Generatr | `1.6.0` | Renders the workspace, its AsciiDoc docs and ADRs into the static portal | [github.com/avisi-cloud/structurizr-site-generatr](https://github.com/avisi-cloud/structurizr-site-generatr) |
+| Structurizr Site Generatr | `1.6.0` | Renders the workspace, its Markdown docs and ADRs into the static portal | [github.com/avisi-cloud/structurizr-site-generatr](https://github.com/avisi-cloud/structurizr-site-generatr) |
 | Graphviz | latest from conda-forge (installed via [micromamba](https://mamba.readthedocs.io/)) | Diagram auto-layout — the site generator shells out to `dot`. Skipped if the host already has it | [graphviz.org](https://graphviz.org/) |
 
 Exact versions are pinned at the top of
@@ -65,7 +65,7 @@ Exact versions are pinned at the top of
 |---|---|---|
 | C4 model | — | [c4model.com](https://c4model.com/) |
 | Structurizr DSL | as supported by the CLI above | [docs.structurizr.com/dsl](https://docs.structurizr.com/dsl) |
-| AsciiDoc | Asciidoctor (bundled in the site generator) | [docs.asciidoctor.org](https://docs.asciidoctor.org/) |
+| Markdown | CommonMark + GitHub tables (flexmark, bundled in the site generator) | [commonmark.org](https://commonmark.org/) |
 | ADRs | adr-tools Markdown format | [ADR GitHub org](https://adr.github.io/) |
 
 ### CI
@@ -135,4 +135,4 @@ merged content.
   fragments, and any authored document that does not reach the published portal.
 - Portal publishes from the default branch: GitHub Pages today, GitLab Pages in the Transpower environment.
 
-Start with the [contribution guide](docs/architecture-as-code/contribution-guide.adoc).
+Start with the [contribution guide](docs/architecture-as-code/contribution-guide.md).

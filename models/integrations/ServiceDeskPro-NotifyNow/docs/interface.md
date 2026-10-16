@@ -1,0 +1,14 @@
+## Interface: ServiceDeskPro -> NotifyNow
+
+| Field | Value |
+|---|---|
+| Purpose | Sends incident, request and change notifications to stakeholders. |
+| Source System | ServiceDeskPro |
+| Target System | NotifyNow |
+| Data Classification | Internal |
+| Authentication Method | API key (rotation every 90 days) |
+| Transport Protocol | HTTPS/REST, JSON payloads |
+| Frequency | Event-driven |
+| Support Team | Digital Workplace Team |
+| Operational Ownership | Corporate Services |
+| Monitoring Approach | Delivery failure webhooks and weekly delivery report |

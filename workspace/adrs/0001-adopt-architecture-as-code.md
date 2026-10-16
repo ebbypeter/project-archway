@@ -6,6 +6,8 @@ Date: 2026-08-30
 
 Accepted
 
+Amended by [5. Use Markdown for documentation](0005-use-markdown-for-documentation.md)
+
 ## Context
 
 Architecture knowledge was scattered across drawing tools, wikis and slide

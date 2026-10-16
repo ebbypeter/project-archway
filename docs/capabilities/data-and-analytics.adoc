@@ -1,5 +1,0 @@
-= Capability: Data & Analytics
-
-Turning operational and asset data into curated datasets, reports and dashboards.
-
-*Primary systems:* InsightLake. *Key roles:* Data Analyst, Business Manager.

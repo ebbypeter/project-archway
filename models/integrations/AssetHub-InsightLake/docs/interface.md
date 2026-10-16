@@ -1,0 +1,14 @@
+## Interface: AssetHub -> InsightLake
+
+| Field | Value |
+|---|---|
+| Purpose | Publishes the asset register and maintenance history for analytics and reporting. |
+| Source System | AssetHub |
+| Target System | InsightLake |
+| Data Classification | Internal |
+| Authentication Method | OAuth 2.0 client credentials via IdentityCloud |
+| Transport Protocol | Nightly batch extract (TLS), Parquet files |
+| Frequency | Daily (02:00) |
+| Support Team | Asset Systems Support |
+| Operational Ownership | Asset Management |
+| Monitoring Approach | Batch completion and row-count reconciliation alerts |

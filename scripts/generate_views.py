@@ -9,7 +9,7 @@ every software system, and one landscape per portfolio category, into
 Hand-written views still win: a system with its own `views.dsl` is skipped here,
 so anything needing custom scoping or layout stays under the author's control.
 
-Scale note (measured — see docs/architecture-as-code/scale.adoc): landscape views
+Scale note (measured — see docs/architecture-as-code/scale.md): landscape views
 degrade catastrophically past ~60 elements, so a category holding more than
 that must be split before its landscape is usable.
 """

@@ -93,7 +93,7 @@ def main() -> int:
     # 3d. Every declared capability has a documentation page.
     capability_docs = {
         p.stem.replace("-", " ").lower()
-        for p in (ROOT / "docs/capabilities").glob("*.adoc")
+        for p in (ROOT / "docs/capabilities").glob("*.md")
     }
     for system in model.systems:
         capability = system.properties.get("capability")

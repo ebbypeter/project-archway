@@ -1,0 +1,22 @@
+## AssetHub
+
+AssetHub is the asset management platform for Apex Energy Corporation.
+Asset Planners use it to plan investments and maintenance across the asset base.
+
+### Responsibilities
+
+* Asset register and asset lifecycle management
+* Maintenance and investment planning
+* Publishing asset data to InsightLake for analytics
+
+### Key Facts
+
+| Fact | Value |
+|---|---|
+| Owner | Asset Management |
+| Capability | Asset Management |
+| Lifecycle | Production |
+| Criticality | High |
+| Runtime | Java 21 |
+| Database | PostgreSQL |
+| Hosting | Cloud |

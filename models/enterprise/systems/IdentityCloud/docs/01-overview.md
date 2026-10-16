@@ -1,0 +1,21 @@
+## IdentityCloud
+
+IdentityCloud is the enterprise identity provider. Enterprise systems authenticate
+users via IdentityCloud using single sign-on.
+
+### Responsibilities
+
+* Workforce identity lifecycle
+* Authentication and single sign-on (OIDC / SAML)
+* Access policy enforcement and MFA
+
+### Key Facts
+
+| Fact | Value |
+|---|---|
+| Owner | Corporate Services |
+| Capability | Corporate Services |
+| Lifecycle | Production |
+| Criticality | High |
+| Hosting | SaaS |
+| Vendor | IdentityCloud Ltd. |

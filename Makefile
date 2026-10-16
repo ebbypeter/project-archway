@@ -24,7 +24,7 @@ validate: views
 	@source scripts/env.sh && echo "==> structurizr-cli validate" && \
 		"$$STRUCTURIZR_CLI" validate -workspace workspace/workspace.dsl
 
-## reports: generate inventory reports from model properties (*.gen.adoc)
+## reports: generate inventory reports from model properties (*.gen.md)
 reports:
 	python3 scripts/generate_reports.py
 
@@ -41,4 +41,4 @@ serve:
 	cd build/site && python3 -m http.server 8080
 
 clean:
-	rm -rf build workspace/docs/*.gen.adoc
+	rm -rf build workspace/docs/*.gen.md

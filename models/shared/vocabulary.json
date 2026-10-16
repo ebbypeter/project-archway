@@ -33,7 +33,7 @@
       "SaaS"
     ]
   },
-  "_openProperties": "owner, capability, runtime, database, vendor, supportTeam and repository are free text. 'capability' is cross-checked against docs/capabilities/*.adoc instead of a list here.",
+  "_openProperties": "owner, capability, runtime, database, vendor, supportTeam and repository are free text. 'capability' is cross-checked against docs/capabilities/*.md instead of a list here.",
   "relationshipVerbs": [
     "Uses",
     "Publishes",
