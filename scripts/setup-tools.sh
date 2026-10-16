@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
-# Download pinned tooling into .tools/ (idempotent, no root required).
-# Tools: Temurin JRE 21 (only if no system Java), structurizr-cli, structurizr-site-generatr.
+# Install pinned tooling (idempotent, no root required).
+#
+# Docker is the primary option: when Docker is running, pull the pinned images
+# (versions in scripts/env.sh). Any tool whose image cannot be pulled — or
+# every tool, without Docker or with AAC_USE_DOCKER=0 — is downloaded into
+# .tools/ instead: Temurin JRE 21 (only if no system Java), structurizr-cli,
+# structurizr-site-generatr and Graphviz.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -8,6 +13,25 @@ TOOLS="$ROOT/.tools"
 
 CLI_VERSION="v2025.11.09"
 SITE_GENERATR_VERSION="1.6.0"
+
+source "$ROOT/scripts/env.sh" 2>/dev/null
+
+need_local_cli=1
+need_local_generatr=1
+if [ "${AAC_USE_DOCKER:-1}" != "0" ] && command -v docker >/dev/null 2>&1 \
+        && docker info >/dev/null 2>&1; then
+    echo "==> Pulling $STRUCTURIZR_IMAGE"
+    docker pull -q "$STRUCTURIZR_IMAGE" && need_local_cli=0 \
+        || echo "    pull failed — falling back to a local structurizr-cli"
+    echo "==> Pulling $SITE_GENERATR_IMAGE"
+    docker pull -q "$SITE_GENERATR_IMAGE" && need_local_generatr=0 \
+        || echo "    pull failed — falling back to a local structurizr-site-generatr"
+fi
+
+if [ "$need_local_cli$need_local_generatr" = "00" ]; then
+    echo "==> Tooling ready (Docker images)"
+    exit 0
+fi
 
 mkdir -p "$TOOLS"
 
@@ -22,7 +46,7 @@ if ! command -v java >/dev/null 2>&1 && [ ! -x "$TOOLS/jre/bin/java" ]; then
 fi
 
 # --- structurizr-cli ---
-if [ ! -f "$TOOLS/structurizr-cli/structurizr.sh" ]; then
+if [ "$need_local_cli" = 1 ] && [ ! -f "$TOOLS/structurizr-cli/structurizr.sh" ]; then
     echo "==> Downloading structurizr-cli $CLI_VERSION"
     curl -fsSL -o "$TOOLS/structurizr-cli.zip" \
         "https://github.com/structurizr/cli/releases/download/$CLI_VERSION/structurizr-cli.zip"
@@ -33,7 +57,7 @@ if [ ! -f "$TOOLS/structurizr-cli/structurizr.sh" ]; then
 fi
 
 # --- structurizr-site-generatr ---
-if [ ! -f "$TOOLS/structurizr-site-generatr/bin/structurizr-site-generatr" ]; then
+if [ "$need_local_generatr" = 1 ] && [ ! -f "$TOOLS/structurizr-site-generatr/bin/structurizr-site-generatr" ]; then
     echo "==> Downloading structurizr-site-generatr $SITE_GENERATR_VERSION"
     curl -fsSL -o "$TOOLS/site-generatr.tar.gz" \
         "https://github.com/avisi-cloud/structurizr-site-generatr/releases/download/$SITE_GENERATR_VERSION/structurizr-site-generatr-$SITE_GENERATR_VERSION.tar.gz"
@@ -43,8 +67,9 @@ if [ ! -f "$TOOLS/structurizr-site-generatr/bin/structurizr-site-generatr" ]; th
     rm "$TOOLS/site-generatr.tar.gz"
 fi
 
-# --- Graphviz (needed by site-generatr for diagram auto-layout) ---
-if ! command -v dot >/dev/null 2>&1 && [ ! -x "$TOOLS/graphviz/bin/dot" ]; then
+# --- Graphviz (needed by a local site-generatr for diagram auto-layout;
+# the Docker image ships its own) ---
+if [ "$need_local_generatr" = 1 ] && ! command -v dot >/dev/null 2>&1 && [ ! -x "$TOOLS/graphviz/bin/dot" ]; then
     echo "==> Installing Graphviz user-space via micromamba (no root needed)"
     curl -fsSL -o "$TOOLS/micromamba.tar.bz2" \
         "https://micro.mamba.pm/api/micromamba/linux-64/latest"

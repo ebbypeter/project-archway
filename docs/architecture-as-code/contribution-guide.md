@@ -44,7 +44,7 @@ lands half-imported.
 
 | Command | Purpose |
 |---|---|
-| `make setup` | Download tooling into `.tools/` (one-off) |
+| `make setup` | Pull the Docker images, or download tooling into `.tools/` without Docker (one-off) |
 | `make validate` | Convention checks + DSL compile of the workspace |
 | `make site` | Full portal build into `build/site/` (ends with the publication check) |
 | `make verify` | Confirm every authored document reached the built site |

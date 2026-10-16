@@ -18,7 +18,7 @@ Built to the specs in [docs/spec/](docs/spec/), primarily the
 ## Quick start
 
 ```bash
-make setup      # one-off: downloads pinned tooling into .tools/ (no root needed)
+make setup      # one-off: pulls the pinned Docker images (or downloads tooling into .tools/)
 make validate   # convention checks + authoritative DSL compile of the workspace
 make site       # builds the portal into build/site/, then verifies publication
 make verify     # confirm every authored document reached the site
@@ -27,10 +27,38 @@ make serve      # http://localhost:8080
 
 ## Dependencies
 
-Everything except the host prerequisites is downloaded into `.tools/` by
-`make setup` ([scripts/setup-tools.sh](scripts/setup-tools.sh)) — user-space,
-no root, nothing installed system-wide. `.tools/` is gitignored; re-run
-`make setup` on a new machine.
+The two Structurizr tools run from **Docker images** when Docker is available,
+and from a **local install in `.tools/`** otherwise.
+[scripts/env.sh](scripts/env.sh) decides, per tool, every time a build runs:
+
+1. If Docker is running and the pinned image has been pulled, the tool runs in
+   that container ([scripts/docker/](scripts/docker/)). Nothing else is needed
+   on the host besides the prerequisites below — no Java, no Graphviz.
+2. Otherwise it uses the local install in `.tools/`.
+
+Each build prints which one it picked (`==> structurizr: docker …`).
+`make setup` ([scripts/setup-tools.sh](scripts/setup-tools.sh)) prepares
+whichever is available: with Docker it pulls the images; without Docker — or
+for any image it cannot pull — it downloads the local tools into `.tools/`
+(user-space, no root, nothing installed system-wide). `.tools/` is gitignored;
+re-run `make setup` on a new machine.
+
+| Variable | Effect |
+|---|---|
+| `AAC_USE_DOCKER=0` | Always use `.tools/`, even if the images are present. CI sets this so it can use its cached `.tools/` |
+| `STRUCTURIZR_IMAGE` | Use a different structurizr image |
+| `SITE_GENERATR_IMAGE` | Use a different site generator image |
+
+### Docker images (primary)
+
+| Image | Version | Purpose |
+|---|---|---|
+| [`structurizr/structurizr`](https://hub.docker.com/r/structurizr/structurizr) | `2026.09.19` (structurizr-java 6.2.3) | Authoritative DSL validate. This is the combined Structurizr product; the repo uses only its `validate` command |
+| [`ghcr.io/avisi-cloud/structurizr-site-generatr`](https://github.com/avisi-cloud/structurizr-site-generatr/pkgs/container/structurizr-site-generatr) | `1.6.0` | Renders the portal. Ships its own Graphviz |
+
+Image versions are pinned at the top of [scripts/env.sh](scripts/env.sh);
+bump them there. The images run as your user, with the repository mounted at
+its own path, so build output is owned by you.
 
 ### Host prerequisites
 
@@ -39,10 +67,11 @@ no root, nothing installed system-wide. `.tools/` is gitignored; re-run
 | [Python](https://www.python.org/) | 3.9+ | Validation, inventory reports, docs aggregation. Standard library only — no `pip install` |
 | [Bash](https://www.gnu.org/software/bash/) | 4+ | `scripts/*.sh` (the Makefile sets `SHELL := /bin/bash`) |
 | GNU Make | 4+ | Task entry points |
-| `curl`, `tar`, `unzip` | any | Used by `make setup` to fetch tooling |
+| [Docker](https://docs.docker.com/get-docker/) | any recent | Optional, preferred: runs the two Structurizr tools |
+| `curl`, `tar`, `unzip` | any | Used by `make setup` to fetch the local tooling (only when not using Docker) |
 | [Git](https://git-scm.com/) | 2.x | Source control; `scripts/env.sh` uses it to locate the repo root |
 
-### Managed by `make setup`
+### Local tooling (fallback, managed by `make setup`)
 
 | Tool | Version | Purpose | Source |
 |---|---|---|---|
@@ -51,13 +80,15 @@ no root, nothing installed system-wide. `.tools/` is gitignored; re-run
 | Structurizr Site Generatr | `1.6.0` | Renders the workspace, its Markdown docs and ADRs into the static portal | [github.com/avisi-cloud/structurizr-site-generatr](https://github.com/avisi-cloud/structurizr-site-generatr) |
 | Graphviz | latest from conda-forge (installed via [micromamba](https://mamba.readthedocs.io/)) | Diagram auto-layout — the site generator shells out to `dot`. Skipped if the host already has it | [graphviz.org](https://graphviz.org/) |
 
-Exact versions are pinned at the top of
-[scripts/setup-tools.sh](scripts/setup-tools.sh); bump them there.
+Local tool versions are pinned at the top of
+[scripts/setup-tools.sh](scripts/setup-tools.sh); bump them there. The local
+CLI (`v2025.11.09`) is an older Structurizr engine than the Docker image
+(`2026.09.19`); the model validates on both, but keep them in step when you
+bump either.
 
-> **Platform note:** `make setup` downloads **Linux x64** builds. On macOS,
+> **Platform note:** the local fallback is **Linux x64** builds. On macOS,
 > Windows or ARM, install Java 21 and Graphviz yourself (`make setup` then skips
-> both and fetches only the two Structurizr tools), or run the repo in a
-> container based on the CI image.
+> both and fetches only the two Structurizr tools), or use Docker.
 
 ### Standards and formats
 

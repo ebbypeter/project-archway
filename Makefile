@@ -14,7 +14,7 @@ import-systems:
 views:
 	python3 scripts/generate_views.py
 
-## setup: download pinned tooling into .tools/ (JRE if needed, structurizr-cli, site-generatr)
+## setup: pull the pinned Docker images; without Docker, download tooling into .tools/
 setup:
 	scripts/setup-tools.sh
 

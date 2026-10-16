@@ -24,6 +24,10 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      # Runners have Docker, but the cached .tools/ download is faster than
+      # pulling the images on every run (see scripts/env.sh).
+      AAC_USE_DOCKER: "0"
     steps:
       - uses: actions/checkout@v4
 
