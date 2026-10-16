@@ -1,11 +1,15 @@
 ## Enterprise Landscape
 
-The complete landscape of Apex Energy Corporation. System-scoped views
+The complete landscape of Apex Energy Corporation. Each portfolio also has
+its own landscape page (listed after this one in the menu) showing just that
+portfolio's systems and the systems they connect to. System-scoped views
 (context, container, component, deployment) are on each system's page under
 _Software Systems_.
 
 ### Reading the diagrams
 
+<!-- legend:start — scripts/generate_views.py copies everything up to
+     legend:end onto each portfolio landscape page, so edit the legend here. -->
 Fill colour is the **portfolio**; the border describes hosting and criticality.
 
 <table style="border-collapse:collapse;margin:1rem 0;">
@@ -30,6 +34,7 @@ Fill colour is the **portfolio**; the border describes hosting and criticality.
 </table>
 
 Systems of the same portfolio are also drawn inside a labelled boundary box.
+<!-- legend:end -->
 
 <!-- The tab strip below replicates the markup of the native per-system page
      tabs (Info / Context views / ...), so both landscape variants present the

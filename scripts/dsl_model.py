@@ -18,6 +18,7 @@ MODELS_DIR = ROOT / "models"
 SYSTEM_RE = re.compile(r'^\s*(\w+)\s*=\s*softwareSystem\s+"([^"]+)"', re.M)
 PERSON_RE = re.compile(r'^\s*(\w+)\s*=\s*person\s+"([^"]+)"(?:\s+"([^"]*)")?', re.M)
 CONTAINER_RE = re.compile(r'^\s*(\w+)\s*=\s*container\s+"([^"]+)"(?:\s+"([^"]*)")?(?:\s+"([^"]*)")?', re.M)
+COMPONENT_RE = re.compile(r'^\s*(\w+)\s*=\s*component\s+"([^"]+)"', re.M)
 REL_RE = re.compile(r'^\s*(\w+)\s*->\s*(\w+)(?:\s+"([^"]*)")?(?:\s+"([^"]*)")?', re.M)
 TAGS_RE = re.compile(r'^\s*tags\s+(.+)$', re.M)
 PROP_RE = re.compile(r'^\s*(\w+)\s+"([^"]*)"\s*$', re.M)
@@ -50,6 +51,18 @@ class Model:
     relationships: list[Relationship] = field(default_factory=list)
     person_files: dict[str, Path] = field(default_factory=dict)
     container_files: dict[str, Path] = field(default_factory=dict)
+    # Container -> its software system; component -> its container.
+    parents: dict[str, str] = field(default_factory=dict)
+
+    def owning_system(self, identifier: str) -> str | None:
+        """The software system an element belongs to (itself, for a system);
+        None for people and anything outside a system."""
+        system_ids = {s.identifier for s in self.systems}
+        while identifier not in system_ids:
+            if identifier not in self.parents:
+                return None
+            identifier = self.parents[identifier]
+        return identifier
 
 
 def _block_body(text: str, open_brace_index: int) -> str:
@@ -134,6 +147,17 @@ def parse_model() -> Model:
             for cmatch in CONTAINER_RE.finditer(body):
                 model.containers[cmatch.group(1)] = cmatch.group(2)
                 model.container_files[cmatch.group(1)] = path
+                model.parents[cmatch.group(1)] = identifier
+
+                # Components live in a file included from the container block.
+                line_end = body.find("\n", cmatch.end())
+                if "{" in body[cmatch.end():line_end]:
+                    container_body = _block_body(body, body.index("{", cmatch.end()))
+                    for inc in INCLUDE_RE.findall(container_body):
+                        included = path.parent / inc
+                        if included.is_file():
+                            for comp in COMPONENT_RE.finditer(included.read_text()):
+                                model.parents[comp.group(1)] = cmatch.group(1)
 
         for pmatch in PERSON_RE.finditer(text):
             model.people[pmatch.group(1)] = pmatch.group(2)

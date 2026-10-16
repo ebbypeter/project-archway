@@ -11,6 +11,8 @@ nothing here is hand-drawn.
   context, container, component and deployment views, documentation and
   dependencies. Views are defined in the model next to the elements they show.
 * **Enterprise Landscape** — the whole estate on one page.
+* **Portfolio landscapes** (generated) — one page per portfolio: its systems,
+  the systems in other portfolios they connect to, and those connections.
 * **Trust Views** — the external (vendor-hosted / SaaS) trust surface, for
   security review.
 * **Integration Views** and the generated **Interface Catalogue** — every
