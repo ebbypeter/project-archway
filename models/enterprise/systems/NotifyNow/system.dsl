@@ -12,6 +12,8 @@ group "Enterprise Apps" {
             hosting "SaaS"
             vendor "NotifyNow Inc."
             supportTeam "Digital Workplace Team"
+
+            sbom "Not available: SaaS; vendor does not publish an SBOM"
         }
 
         perspectives {

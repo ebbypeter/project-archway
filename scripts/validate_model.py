@@ -8,8 +8,10 @@ Checks (beyond what structurizr-cli's compile validates):
   4. Naming standards (no environment/type suffixes in system names).
   5. Every model fragment is listed in the canonical manifest (models/model.dsl).
   6. Every relationship has a description.
+  7. SBOMs are valid CycloneDX, filed under the element they describe; stale
+     or missing SBOMs are warnings, not failures.
 
-Exit code is non-zero if any check fails.
+Exit code is non-zero if any check fails. Warnings are reported but pass.
 """
 
 from __future__ import annotations
@@ -20,6 +22,7 @@ import sys
 from collections import Counter
 from pathlib import Path
 
+import sbom as sboms_
 from dsl_model import ROOT, approved_tags, manifest_includes, model_dsl_files, parse_model
 
 MANDATORY_PROPERTIES = ("owner", "capability", "lifecycle", "criticality")
@@ -34,6 +37,7 @@ def main() -> int:
     model = parse_model()
     tags_allowed = approved_tags()
     errors: list[str] = []
+    warnings: list[str] = []
 
     # 1. Mandatory properties
     for system in model.systems:
@@ -135,6 +139,34 @@ def main() -> int:
                 f"{relationship.source} -> {relationship.destination} has no description"
             )
 
+    # 7. SBOMs
+    loaded = sboms_.load(model)
+    for sbom in loaded:
+        for problem in sbom.errors:
+            errors.append(f"{rel(sbom.path)}: {problem}")
+        if sbom.stale:
+            warnings.append(
+                f"{rel(sbom.path)}: produced {sbom.produced} ({sbom.age_days} days "
+                f"ago) — older than {sboms_.MAX_AGE_DAYS} days; publish a fresh one"
+            )
+    covered = {s.system for s in loaded}
+    for system in model.systems:
+        reason = system.properties.get("sbom")
+        if system.identifier in covered and reason:
+            warnings.append(
+                f"{rel(system.file)}: system '{system.name}' has SBOM files and an "
+                f"'sbom' property saying why it has none — remove one"
+            )
+        elif system.identifier not in covered and not reason:
+            warnings.append(
+                f"{rel(system.file)}: system '{system.name}' has no SBOM — add "
+                f"sbom/<identifier>{sboms_.SUFFIX}, or an 'sbom' property "
+                f"stating why there is none"
+            )
+
+    for warning in warnings:
+        print(f"  ! {warning}", file=sys.stderr)
+
     if errors:
         print(f"Model validation FAILED with {len(errors)} error(s):\n", file=sys.stderr)
         for error in errors:
@@ -144,7 +176,8 @@ def main() -> int:
     print(
         f"Model validation passed: {len(model.systems)} systems, "
         f"{len(model.people)} people, {len(model.containers)} containers, "
-        f"{len(model.relationships)} relationships."
+        f"{len(model.relationships)} relationships, {len(loaded)} SBOMs"
+        + (f" ({len(warnings)} warning(s))." if warnings else ".")
     )
     return 0
 

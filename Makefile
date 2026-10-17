@@ -41,4 +41,4 @@ serve:
 	cd build/site && python3 -m http.server 8080
 
 clean:
-	rm -rf build workspace/docs/*.gen.md
+	rm -rf build workspace/docs/*.gen.md models/*/*/docs/*.gen.md models/*/*/*/docs/*.gen.md

@@ -1,0 +1,114 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:552fb5b2-2caa-54f1-8b81-6221d3ee028e",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-10-02T21:18:00Z",
+    "tools": {
+      "components": [
+        {
+          "type": "application",
+          "name": "syft",
+          "version": "1.33.0"
+        }
+      ]
+    },
+    "component": {
+      "type": "application",
+      "bom-ref": "Asset Sync Service@1.19.2",
+      "name": "Asset Sync Service",
+      "version": "1.19.2"
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot-starter-web@3.5.6",
+      "group": "org.springframework.boot",
+      "name": "spring-boot-starter-web",
+      "version": "3.5.6",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot-starter-web@3.5.6",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot-starter-oauth2-resource-server@3.5.6",
+      "group": "org.springframework.boot",
+      "name": "spring-boot-starter-oauth2-resource-server",
+      "version": "3.5.6",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot-starter-oauth2-resource-server@3.5.6",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.19.2",
+      "group": "com.fasterxml.jackson.core",
+      "name": "jackson-databind",
+      "version": "2.19.2",
+      "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.19.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.networknt/json-schema-validator@1.5.8",
+      "group": "com.networknt",
+      "name": "json-schema-validator",
+      "version": "1.5.8",
+      "purl": "pkg:maven/com.networknt/json-schema-validator@1.5.8",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/io.github.resilience4j/resilience4j-spring-boot3@2.3.0",
+      "group": "io.github.resilience4j",
+      "name": "resilience4j-spring-boot3",
+      "version": "2.3.0",
+      "purl": "pkg:maven/io.github.resilience4j/resilience4j-spring-boot3@2.3.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/ch.qos.logback/logback-classic@1.5.18",
+      "group": "ch.qos.logback",
+      "name": "logback-classic",
+      "version": "1.5.18",
+      "purl": "pkg:maven/ch.qos.logback/logback-classic@1.5.18",
+      "licenses": [
+        {
+          "expression": "EPL-1.0 OR LGPL-2.1-only"
+        }
+      ]
+    }
+  ]
+}

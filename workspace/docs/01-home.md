@@ -17,6 +17,8 @@ nothing here is hand-drawn.
   security review.
 * **Integration Views** and the generated **Interface Catalogue** — every
   system-to-system interface as a first-class, documented asset.
+* **Component Inventory** (generated) — SBOM coverage per system and every
+  library across the estate, with the systems that use it.
 * **Technology Inventory** (generated) — the estate by runtime, database,
   hosting, lifecycle and criticality, built from model properties.
 * **Architecture Practice Standards**, **Policies** and **Business Capabilities** —

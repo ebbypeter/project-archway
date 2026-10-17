@@ -12,6 +12,8 @@ group "Enterprise Apps" {
             hosting "SaaS"
             vendor "ServiceDeskPro Ltd."
             supportTeam "IT Service Management Team"
+
+            sbom "Not available: SaaS; vendor does not publish an SBOM"
         }
 
         perspectives {

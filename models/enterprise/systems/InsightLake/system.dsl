@@ -13,6 +13,8 @@ group "Market Apps" {
             hosting "Cloud"
             vendor "InsightLake Inc."
             supportTeam "Analytics Platform Team"
+
+            sbom "Requested from vendor (InsightLake Inc.); not yet supplied"
         }
 
         perspectives {

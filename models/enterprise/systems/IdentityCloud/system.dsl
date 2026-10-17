@@ -12,6 +12,8 @@ group "External Apps" {
             hosting "SaaS"
             vendor "IdentityCloud Ltd."
             supportTeam "Identity & Access Team"
+
+            sbom "Not available: SaaS; vendor does not publish an SBOM"
         }
 
         perspectives {

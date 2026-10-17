@@ -1,0 +1,174 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:849ef10a-cfc9-59b4-aaf1-2197cca2057b",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-05-04T09:12:00Z",
+    "tools": {
+      "components": [
+        {
+          "type": "application",
+          "name": "syft",
+          "version": "1.24.0"
+        }
+      ]
+    },
+    "component": {
+      "type": "application",
+      "bom-ref": "AssetHub@4.12.0",
+      "name": "AssetHub",
+      "version": "4.12.0"
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot-starter-web@3.4.5",
+      "group": "org.springframework.boot",
+      "name": "spring-boot-starter-web",
+      "version": "3.4.5",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot-starter-web@3.4.5",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.boot/spring-boot-starter-data-jpa@3.4.5",
+      "group": "org.springframework.boot",
+      "name": "spring-boot-starter-data-jpa",
+      "version": "3.4.5",
+      "purl": "pkg:maven/org.springframework.boot/spring-boot-starter-data-jpa@3.4.5",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.springframework.security/spring-security-saml2-service-provider@6.4.5",
+      "group": "org.springframework.security",
+      "name": "spring-security-saml2-service-provider",
+      "version": "6.4.5",
+      "purl": "pkg:maven/org.springframework.security/spring-security-saml2-service-provider@6.4.5",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.hibernate.orm/hibernate-core@6.6.13.Final",
+      "group": "org.hibernate.orm",
+      "name": "hibernate-core",
+      "version": "6.6.13.Final",
+      "purl": "pkg:maven/org.hibernate.orm/hibernate-core@6.6.13.Final",
+      "licenses": [
+        {
+          "license": {
+            "id": "LGPL-2.1-only"
+          }
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.postgresql/postgresql@42.7.5",
+      "group": "org.postgresql",
+      "name": "postgresql",
+      "version": "42.7.5",
+      "purl": "pkg:maven/org.postgresql/postgresql@42.7.5",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-2-Clause"
+          }
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.flywaydb/flyway-core@11.7.2",
+      "group": "org.flywaydb",
+      "name": "flyway-core",
+      "version": "11.7.2",
+      "purl": "pkg:maven/org.flywaydb/flyway-core@11.7.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.3",
+      "group": "com.fasterxml.jackson.core",
+      "name": "jackson-databind",
+      "version": "2.18.3",
+      "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.apache.parquet/parquet-hadoop@1.15.1",
+      "group": "org.apache.parquet",
+      "name": "parquet-hadoop",
+      "version": "1.15.1",
+      "purl": "pkg:maven/org.apache.parquet/parquet-hadoop@1.15.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/ch.qos.logback/logback-classic@1.5.18",
+      "group": "ch.qos.logback",
+      "name": "logback-classic",
+      "version": "1.5.18",
+      "purl": "pkg:maven/ch.qos.logback/logback-classic@1.5.18",
+      "licenses": [
+        {
+          "expression": "EPL-1.0 OR LGPL-2.1-only"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:maven/org.apache.logging.log4j/log4j-api@2.24.3",
+      "group": "org.apache.logging.log4j",
+      "name": "log4j-api",
+      "version": "2.24.3",
+      "purl": "pkg:maven/org.apache.logging.log4j/log4j-api@2.24.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ]
+    }
+  ]
+}

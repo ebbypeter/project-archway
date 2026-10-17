@@ -34,6 +34,13 @@ make import-systems FILE=estate.csv
 The import validates every row before writing anything, so a large file never
 lands half-imported.
 
+## Adding or updating an SBOM
+
+Put the CycloneDX JSON file in the system's `sbom/` folder, named after the
+system's identifier (or a container's, when the system ships several), e.g.
+`sbom/assetSyncService.cdx.json`. Generate it from the build — ideally the
+release pipeline opens the merge request. See `sbom.md` for the details.
+
 ## Adding an integration
 
 1. Folder `models/integrations/<Source>-<Target>/`.

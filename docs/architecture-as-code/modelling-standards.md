@@ -8,7 +8,7 @@ Mandatory on every software system (pipeline-enforced): `owner`, `capability`,
 `lifecycle`, `criticality`.
 
 Optional: `runtime`, `database`, `hosting`, `vendor`, `supportTeam`, `repository`,
-`businessOwner`.
+`businessOwner`, `sbom` (why a system has no SBOM — see `sbom.md`).
 
 Lifecycle values: `Production`, `Under Upgrade`, `Retiring`.
 Criticality values: `High`, `Medium`, `Low`.
